@@ -1,0 +1,531 @@
+#captcha{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body.modal-open {
+    overflow: hidden;
+    padding-right: 17px;
+}
+
+.international-form-container{
+    position: fixed;
+    display: none;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, .3);
+}
+
+.international-form-wrapper{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 10px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: scroll;
+}
+
+.international-form {
+    width: 620px;
+    padding: 88px 48px 48px 48px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transition: height 1s ease-out;
+}
+
+.international-form h3{
+    font-family: 'Exo2', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 140%;
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+}
+
+.international-form .subtitle{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    color: #666666;
+}
+
+.international-form form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 48px 0 0 0;
+}
+.international-form .input-wrapper{
+    width: 100%;
+    margin-bottom: 24px;
+    opacity: 1;
+    height: auto;
+    transition: opacity .2s ease-out;
+}
+.international-form input, .international-form select, .international-form textarea{
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #B1B1B1;
+    border-radius: 10px;
+    color: #333333;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2em;
+    padding: 17px 5px 17px 24px;
+}
+
+/*custom select*/
+.custom-select-container .error-wrapper{
+    position: absolute;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: #EB2525;
+    bottom: -17px;
+    display: none;
+}
+.custom-select-container{
+    position: relative;
+}
+input.errorRequest + .custom-select-wrapper{
+    border-color: #FF8080 !important;
+    outline: 1px solid #FF8080;
+}
+.custom-select-wrapper{
+    background: #FFFFFF;
+    border: 1px solid #B1B1B1;
+    box-sizing: border-box;
+    border-radius: 10px;
+    /*padding: 17px 0 0 0;*/
+    width: 100%;
+    cursor: pointer;
+    transition: border-color .3s ease, background-color .1s ease;
+    position: relative;
+}
+
+.custom-select-wrapper.opened{
+    outline: 1px solid rgb(16,16,16);
+}
+.custom-select-wrapper:hover{
+    border: 1px solid #4A4B56;
+    background: #f2f2f4;
+}
+.custom-select-wrapper.opened{
+    z-index: 1000;
+    background: white;
+    border: 1px solid #4A4B56;
+}
+.custom-select-wrapper .custom-select-options{
+    max-height: 182px;
+    overflow: auto;
+}
+.custom-select-wrapper.opened .custom-select-options::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+    position: relative;
+    right: 10px;
+}
+
+.custom-select-wrapper.opened .custom-select-options::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #6d7986;
+}
+
+.custom-select-wrapper.opened .custom-select-options::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+[disabled="disabled"] .custom-select-wrapper{
+    background: #f6f6f7;
+    border: 1px solid #e9e9ea;
+    cursor: not-allowed;
+}
+[disabled="disabled"] .custom-select-wrapper .arrow{
+    opacity: .3;
+}
+[disabled="disabled"] .custom-select-wrapper .custom-select-label{
+    color: #cfcfcf;
+}
+.custom-select-label-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 24px;
+    /*padding: 0 12px 17px 24px;*/
+}
+.custom-select-label-wrapper .arrow{
+    width: 15px;
+    height: 15px;
+    background: center / contain no-repeat url('../..../../images/widgets/form/chevron-down.webp');
+
+}
+.custom-select-wrapper.opened .arrow{
+    background-image: url('../..../../images/widgets/form/chevron-up.webp');
+}
+.custom-select-label{
+    font-size: 14px;
+    line-height: 120%;
+    color: #6D7986;
+    width: 100%;
+}
+.custom-select-label input{
+    border: 0;
+    background: transparent;
+    margin: 0;
+    line-height: 1.2em;
+    border-radius: 0;
+    width: 100%;
+    color: #0B1F35;
+}
+.custom-select-label input:focus{
+    outline: none;
+}
+.custom-select-options{
+    flex-direction: column;
+}
+.custom-select-options-wrapper{
+    display: none;
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    z-index: 10000;
+    background: white;
+    bottom: -5px;
+    transform: translate(0, 100%);
+    padding: 12px;
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    border-radius: 10px;
+}
+.custom-select-container.position-top .custom-select-options-wrapper{
+    transform: translate(0, -100%);
+    bottom: auto;
+    top: -5px;
+}
+.opened .custom-select-options-wrapper{
+    display: block;
+}
+.custom-select-option{
+    display: flex;
+    color: #0B1F35;
+    align-items: center;
+    cursor: pointer;
+    padding: 12px;
+    position: relative;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 120%;
+}
+.custom-select-option:hover{
+    background: rgba(211, 213, 218, 0.4);
+}
+.international-form .input-wrapper.hidden-wrapper{
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.close-button{
+    position: absolute;
+    right: 27px;
+    top: 27px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+}
+.close-button img{
+    width: 100%;
+}
+
+.international-form button{
+    font-family: 'Exo2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: white;
+    background: #F50882;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #F50882;
+    padding: 16px 66px;
+    margin: 24px 0;
+}
+
+.international-form button:hover{
+    background: #FF2796;
+}
+
+.international-form button:focus{
+    background: #FFF5FA;
+    color: #FF2796;
+}
+
+.international-form .agreement{
+    color: #6D7986;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+}
+
+.international-form .error-text{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: #EB2525;
+    transition: all .2s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin-top: 0;
+}
+.international-form .input-wrapper.error-wrapper input[data-target-input], .international-form .input-wrapper.error-wrapper .custom-select-wrapper{
+    border: 1px solid #FF8080;
+}
+
+.international-form .input-wrapper.error-wrapper .error-text{
+    margin-top: 10px;
+    opacity: 1;
+    height: auto;
+}
+
+.iti {
+    width: 100%;
+}
+[type="tel"]::placeholder{
+    color: #d1d1d1;
+}
+.iti--separate-dial-code .iti__selected-flag {
+    background-color: unset;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-left: 24px;
+}
+.iti--separate-dial-code .iti__selected-dial-code{
+    margin-left: 20px;
+    color: #333333;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+}
+.iti__arrow{
+    width: 15px;
+    height: 15px;
+    background: center / contain no-repeat url(../..../../images/widgets/form/chevron-down.webp);
+    border: none;
+    margin: 0;
+}
+.iti__arrow--up{
+    background-image: url(../..../../images/widgets/form/chevron-up.webp);
+    border: none;
+}
+.iti__country-list{
+    width: 524px;
+    margin-top: 5px;
+    background: white;
+    padding: 12px;
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    border-radius: 10px;
+}
+
+.international-form-wrapper .success-window{
+    width: 787px;
+    padding: 73px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: width 1s ease-out;
+}
+.international-form-wrapper .success-window .image-wrapper{
+    margin-bottom: 40px;
+}
+.international-form-wrapper .success-window h3{
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 120%;
+    color: #0B1F35;
+    margin: 0 0 24px 0;
+}
+.international-form-wrapper .success-window p{
+    margin: 0 0 24px 0;
+}
+
+.international-form-wrapper .success-window button[data-form-close]{
+    width: 316px;
+    margin: 56px 0 0 0;
+    font-family: 'Exo2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: white;
+    background: #F50882;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #F50882;
+    padding: 16px 66px;
+}
+
+.international-form-wrapper .hidden{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+.international-form-wrapper .sending-info{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: #FF2796;
+    background: #FDCEE6;
+    border: 1px solid #F50882;
+    border-radius: 10px;
+    padding: 16px 60px;
+    margin: 24px 0;
+    display: none;
+}
+/*custom select*/
+
+/*mini*/
+/*
+.international-form{
+    padding: 48px 48px 24px 48px;
+}
+.international-form h3{
+    font-size: 26px;
+}
+.international-form form{
+    margin: 24px 0;
+}
+.international-form .input-wrapper{
+    margin-bottom: 18px;
+}
+.international-form input, .international-form select{
+    padding: 12px 5px 12px 18px;
+}*/
+/*mini*/
+
+@media (max-width: 767px) {
+    body.modal-open{
+        padding-right: 0;
+    }
+    .international-form-wrapper{
+        padding: 0;
+    }
+    .international-form{
+        width: 100%;
+        max-width: 360px;
+        border-radius: 0;
+        padding: 50px 20px 25px 20px;
+    }
+    .close-button{
+        right: 8px;
+        top: 8px;
+    }
+    .international-form h3{
+        font-size: 22px;
+        margin: 0 0 12px 0;
+    }
+    .international-form .subtitle{
+        font-size: 16px;
+    }
+    .international-form .agreement{
+        font-size: 16px;
+    }
+    .international-form input, .international-form select, .international-form textarea{
+        padding: 11px 5px 11px 18px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    .international-form .input-wrapper{
+        margin-bottom: 16px;
+    }
+    .iti--separate-dial-code .iti__selected-dial-code{
+        font-size: 16px;
+        margin-left: 12px;
+    }
+    .iti--separate-dial-code .iti__selected-flag{
+        padding-left: 16px;
+    }
+    .iti__arrow{
+        width: 12px;
+        height: 12px;
+    }
+    .custom-select-wrapper{
+        border-radius: 5px;
+    }
+    .custom-select-option{
+        font-size: 16px;
+        padding: 9px 12px;
+    }
+    .custom-select-options-wrapper{
+        padding: 8px 12px;
+        border-radius: 5px;
+    }
+    .international-form form{
+        margin: 24px 0 0 0;
+    }
+    .international-form button{
+        padding: 10px 0;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 100%;
+        margin: 18px 0 24px 0;
+    }
+    .iti-mobile .iti--container {
+        top: 0;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%);
+        right: 0;
+        width: 320px;
+    }
+    .international-form-wrapper .sending-info{
+        font-size: 16px;
+        padding: 10px 0;
+        width: 120px;
+    }
+    .international-form-wrapper .success-window button[data-form-close]{
+        width: 120px;
+        padding: 10px 0;
+        height: auto;
+        font-size: 16px;
+    }
+    .international-form-wrapper .success-window{
+        width: 320px;
+        padding: 50px 25px;
+        margin: 36px 0 0 0;
+        border-radius: 6px;
+    }
+    .international-form-wrapper .success-window h3{
+        font-size: 26px;
+        text-align: center;
+    }
+    .international-form .error-text{
+        font-size: 12px;
+    }
+    .international-form .input-wrapper.error-wrapper .error-text{
+        margin-top: 5px;
+    }
+}

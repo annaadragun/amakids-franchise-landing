@@ -1,0 +1,83 @@
+.content .testimonials .slick-list.draggable {
+    margin: 0;
+    max-width: 100%;
+}
+
+.content .testimonials h3 {
+    text-transform: uppercase;
+}
+
+.content .slider-testimonials-wrapper {
+    position: relative;
+}
+
+.content .testimonials-item {
+    width: 550px;
+    padding-left: 0;
+    padding-right: 15px;
+}
+
+.content .next-slide {
+    right: -32px;
+    top: 50%;
+    transform: translate(100%, -50%);
+}
+
+.content .slick-arrow.slick-disabled {
+    display: none !important;
+}
+
+.content .prev-slide {
+    left: -32px;
+    top: 50%;
+    transform: translate(-100%, -50%);
+}
+
+.content .slick-arrow {
+    cursor: pointer;
+    position: absolute;
+}
+
+.content .qty-3 .testimonials-item{
+    width: 380px;
+}
+.content .testimonials-item .rating{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 500;
+}
+.content .testimonials-item .rating span{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 5px 0 10px;
+}
+
+.content .testimonials-item .rating img{
+    border: 0;
+    box-shadow: none;
+    width: 100px;
+}
+.content .testimonials .trustpilot{
+    display: flex;
+    font-size: 24px;
+    line-height: 140%;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    color: #333333;
+    text-decoration: none;
+    margin: 24px 0 0 0;
+}
+@media (max-width: 766px) {
+    .content .testimonials-item {
+        width: 300px;
+    }
+    .content .testimonials .trustpilot{
+        font-size: 18px;
+    }
+    .content .testimonials .trustpilot img{
+        width: 180px;
+    }
+}

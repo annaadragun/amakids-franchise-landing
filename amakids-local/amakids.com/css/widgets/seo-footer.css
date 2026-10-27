@@ -1,0 +1,75 @@
+.seo-footer {
+    background: #fafafa;
+    padding: 40px 20px;
+    font-family: "Georgia", "Times New Roman", serif;
+    line-height: 1.6;
+    color: #333;
+    border-top: 1px solid #ddd;
+}
+
+
+.seo-footer .seo-footer-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0 0 2rem;
+    text-align: center;
+    color: #222;
+}
+
+.seo-footer-wrapper {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.left-seo-container,
+.right-seo-container {
+    flex: 1 1 45%;
+    min-width: 300px;
+}
+
+.seo-footer h3 {
+    /* до 2.2 это были h2 — сохраняем их вид */
+    font-family: Exo2;
+    text-transform: uppercase;
+    line-height: normal;
+    font-size: 1.6rem;
+    margin: 1.2rem 0 0.5rem;  /* компактный отступ */
+    font-weight: 600;
+    color: #222;
+}
+
+.seo-footer p {
+    font-size: 1.4rem;       /* небольшой текст, но читаемо */
+    margin: 0.4rem 0;
+    text-align: justify;
+}
+.seo-footer p strong{
+    font-size: 1.4rem;       /* небольшой текст, но читаемо */
+    margin: 0.4rem 0;
+    text-align: justify;
+}
+
+.seo-footer ul {
+    margin: 0.4rem 0 0.8rem 1.2rem;
+    padding: 0;
+}
+
+.seo-footer li {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+}
+.seo-footer li strong{
+    font-size: 1.4rem;
+}
+
+@media (max-width: 768px) {
+    .seo-footer-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .seo-footer .seo-footer-title {
+        font-size: 1.4rem;
+    }
+}

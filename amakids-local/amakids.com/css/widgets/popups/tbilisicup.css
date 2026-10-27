@@ -1,0 +1,71 @@
+.tbilisicup-modal-container {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tbilisicup-modal-container.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tbilisicup-modal {
+    position: relative;
+    width: 960px;
+    max-width: 94vw;
+}
+
+/* Картинка грузится только после первого действия пользователя (data-src -> src в tbilisicup.js) */
+.tbilisicup-modal-banner {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Верх баннера светлый (небо) - крестик на тёмном круге, чтобы читался */
+.tbilisicup-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tbilisicup-modal-close:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 768px) {
+    .tbilisicup-modal-banner {
+        border-radius: 8px;
+    }
+
+    .tbilisicup-modal-close {
+        top: 6px;
+        right: 6px;
+        width: 30px;
+        height: 30px;
+        font-size: 24px;
+        line-height: 30px;
+    }
+}
