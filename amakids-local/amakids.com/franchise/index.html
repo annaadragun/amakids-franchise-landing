@@ -39,9 +39,9 @@
     })(window, document, "clarity", "script", "qjxgbbizqp");
 </script>
         <meta name="title" content="AMAkids Children&#039;s Education Franchise">
-<meta name="description" content="Start your own educational business. Following AMAkids&#039; recommendations and implementing them correctly will help you recoup your investment in 4-6 months">
+<meta name="description" content="Explore AMAkids franchise formats and request an indicative financial estimate tailored to your city">
 <meta property="og:title" content="AMAkids Children&#039;s Education Franchise">
-<meta property="og:description" content="Start your own educational business. Following AMAkids&#039; recommendations and implementing them correctly will help you recoup your investment in 4-6 months">
+<meta property="og:description" content="Explore AMAkids franchise formats and request an indicative financial estimate tailored to your city">
 <meta property="og:site_name" content="AMAKids - intellectual development academy">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://amakids.com/franchise/?region=">
@@ -102,7 +102,8 @@
         background-position: bottom center;
     }
 }</style>
-<script src="../assets/6b32e782/jquery.min.js"></script></head>
+<script src="../assets/6b32e782/jquery.min.js"></script>    <link rel="stylesheet" href="../css/franchise-calculator.css">
+</head>
 
     <body>
         <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1030433301574625&ev=PageView&noscript=1"></noscript>
@@ -322,7 +323,7 @@
             <div class="stack-item">
             <img loading="lazy" src="../images/icons/dollar-bw.webp" alt="Rapid Return on Investment">
                 <h3>Rapid Return on Investment</h3>
-        <p>By following AMAkids’ proven recommendations and implementing them effectively, you can expect to see a return on your investment within just 4 to 6 months.</p>
+        <p>Explore the indicative city-level model below and request a detailed financial estimate for your chosen format and market.</p>
 </div>
             <div class="stack-item">
             <img loading="lazy" src="../images/icons/vote-bw.webp" alt="Comprehensive Franchisee Support">
@@ -557,63 +558,73 @@
     <div class="clearfix interval "></div>
 <div class="clearfix interval "></div>
     
-    <div class="container-fluid cards-block blend-background">
+<section class="franchise-calculator" id="franchise-calculator">
     <div class="container">
-        <h2 class="bottom-margin-48">Our business model</h2>
-                <p>All calculations based on average<br />AMAkids&nbsp;center parameters</p>
-                <div class="cards-block-scroll">
-            <div class="row">
-									
-<div class="col-lg-3 col-md-6 col-xs-3">
-    <div class="rounded card">
-                    <h4>PROFIT GROWTH</h4>
-                            <p>Break even point</p>
-                            <h5>
-                                    4&nbsp;-&nbsp;6                                                    <span class="small-font">
-                                            &nbsp;
-                                            Months</span>
-                            </h5>
-                <p>Our fast and straightforward model maximizes advantages from the start, ensuring profitability within a short timeframe.</p>
-    </div>
-</div>									
-<div class="col-lg-3 col-md-6 col-xs-3">
-    <div class="rounded card">
-                    <h4>Payback period</h4>
-                            <p>Return on investment</p>
-                            <h5>
-                                    6&nbsp;-&nbsp;10                                                    <span class="small-font">
-                                            &nbsp;
-                                            Months</span>
-                            </h5>
-                <p>Based on a proven and efficient business development plan, you can expect to recover your investment in just a few months!</p>
-    </div>
-</div>									
-<div class="col-lg-3 col-md-6 col-xs-3">
-    <div class="rounded card">
-                    <h4>EXPENSES</h4>
-                            <p>&nbsp;</p>
-                            <h5>
-                                    65&nbsp;-&nbsp;75%                                            </h5>
-                <p>Facility 15%,<br />Trainer 15%,<br />Marketing 15%,<br />Royalty 10%,<br />Taxes 10-20%</p>
-    </div>
-</div>									
-<div class="col-lg-3 col-md-6 col-xs-3">
-    <div class="rounded card">
-                    <h4>Profit Margin</h4>
-                            <p>&nbsp;</p>
-                            <h5>
-                                    25&nbsp;-&nbsp;35%                                            </h5>
-                <p>Enjoy a high profit margin while maintaining low expenses, allowing for sustainable growth and profitability.</p>
-    </div>
-</div>				            </div>
+        <div class="calculator-intro">
+            <h2>Estimate your franchise economics</h2>
+            <p>Adjust the main assumptions to see an indicative estimate for your market.</p>
         </div>
-                    <div style="text-align: center;">
-                <a class="reg-button franchise top-margin-64" href="javascript:void(0);" data-open-form="franchise">Ready to Make a Difference? 
-<br>Leave Your Request Here!</a>            </div>
-                <div class="clearfix interval "></div>
-<div class="clearfix interval "></div>
+        <div class="calculator-layout">
+            <div class="calculator-panel">
+                <div class="calculator-field">
+                    <label for="calc-format">Partnership format</label>
+                    <select id="calc-format" name="format">
+                        <option value="mono">Mono-class (1 course)</option>
+                        <option value="center" selected>Full AMAkids Center</option>
+                        <option value="master">Master Franchise</option>
+                    </select>
+                </div>
+                <div class="calculator-field">
+                    <label for="calc-city">City size</label>
+                    <select id="calc-city" name="city-size">
+                        <option value="large">Large (100k+)</option>
+                        <option value="medium">Medium (20–100k)</option>
+                        <option value="small">Small (&lt;20k)</option>
+                    </select>
+                </div>
+                <div class="calculator-field" id="calc-students-field">
+                    <div class="calculator-range-heading">
+                    <label for="calc-students">Expected monthly course enrollments</label>
+                        <output class="calculator-range-value" id="calc-students-value" for="calc-students">60</output>
+                    </div>
+                    <input id="calc-students" name="students" type="range" min="30" max="90" step="30" value="60" aria-describedby="calc-students-scale">
+                    <div class="calculator-range-scale" id="calc-students-scale"><span>30</span><span>60</span><span>90+</span></div>
+                </div>
+                <div class="calculator-field" id="calc-price-field">
+                    <div class="calculator-range-heading">
+                        <label for="calc-price">Average monthly course price</label>
+                        <output class="calculator-range-value" id="calc-price-value" for="calc-price">€100</output>
+                    </div>
+                    <input id="calc-price" name="course-price" type="range" min="70" max="150" step="10" value="100" aria-describedby="calc-price-scale">
+                    <div class="calculator-range-scale" id="calc-price-scale"><span>€70</span><span>€100</span><span>€150</span></div>
+                </div>
+                <p class="calculator-master-note" id="calc-format-note" hidden></p>
+            </div>
+            <div class="calculator-results" aria-live="polite">
+                <h3>Your indicative estimate</h3>
+                <div class="calculator-result">
+                    <span class="calculator-result-label">Estimated initial investment</span>
+                    <strong class="calculator-result-value" id="calc-investment">—</strong>
+                </div>
+                <div class="calculator-result">
+                    <span class="calculator-result-label">Estimated monthly net profit</span>
+                    <strong class="calculator-result-value" id="calc-profit">—</strong>
+                </div>
+                <div class="calculator-result">
+                    <span class="calculator-result-label">Simple payback at selected enrollment</span>
+                    <strong class="calculator-result-value" id="calc-payback">—</strong>
+                </div>
+                <div class="calculator-costs">
+                    <h4>Illustrative monthly cost structure</h4>
+                    <ul id="calc-cost-breakdown"></ul>
+                </div>
+                <p class="calculator-disclaimer" id="calc-disclaimer">Illustrative estimate only. Simple payback reflects the selected monthly enrollment and excludes the ramp-up period. Actual results depend on course mix and local operating costs.</p>
+                <a class="calculator-cta" href="javascript:void(0);" data-open-form="franchise">Get a detailed financial model for my city</a>
+            </div>
+        </div>
     </div>
-</div>    
+</section>
+<div class="clearfix interval"></div>
     <div class="container gallery">
     <h2>Photos</h2>
     <div class="slider-gallery-wrapper">
@@ -1018,7 +1029,7 @@ being confident that we primarily speak from the heart, not for profit.</p>
                 <p>Children franchise offers a reliable cooperation model with clear advantages for partners:</p>
                 <ul>
                     <li>Quick start business model with low entry barrier.</li>
-                    <li>Fast return on investment within 4–6 months.</li>
+                    <li>Financial projections tailored to local operating assumptions.</li>
                     <li>Comprehensive support with ready-made training, marketing and recruitment systems.</li>
                     <li>Unique educational materials and resources.</li>
                     <li>Centralized online platform for management of students and teachers.</li>
@@ -1593,7 +1604,8 @@ being confident that we primarily speak from the heart, not for profit.</p>
     </div>
 </div>    
     
-    <script src="../js/fancybox/jquery.fancybox.js"></script>
+    <script src="../js/franchise-calculator.js"></script>
+<script src="../js/fancybox/jquery.fancybox.js"></script>
 <script src="../js/parts/play-video.js"></script>
 <script src="../modules/intl-tel-input/js/intlTelInput-jquery.js"></script>
 <script src="../modules/maskedinput/jquery.maskedinput.js"></script>
