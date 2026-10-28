@@ -2,6 +2,6 @@
 
 Open this folder in VS Code and start Live Server from `index.html`. The page itself is at `amakids.com/franchise/index.html`.
 
-The mirror includes the fetched HTML, stylesheets, scripts and media files. The original page depends on third-party services and server endpoints; form submission, analytics, some embedded media and dynamically loaded content may not work offline. The copy was fetched from `https://amakids.com/franchise/` on 2026-10-27.
+The mirror includes the fetched media files. The franchise page is a locally redesigned prototype using those assets. Both lead magnets use the same modal form. The presentation request downloads a short partner overview PDF; both requests also prepare an email draft and do not submit data to a server. Before publishing, connect an approved lead form and verify the network figures, course details, country availability and partnership terms.
 
-The local franchise calculator currently uses illustrative Full Center investment ranges and city-level margins from the supplied legacy PDF. It does not show the separate franchise fee. The supplied workbook contains only one three-course scenario and has calculation gaps, so Mono-class and Master Franchise results remain available by tailored request until those cases are modeled.
+See [FRANCHISE-PAGE-PLAN.md](FRANCHISE-PAGE-PLAN.md) for the current page structure, FAQ draft and partner interview checklist.
