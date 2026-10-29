@@ -1,0 +1,8 @@
+# Local credentials and environment settings
+.env.local
+
+# Local video-production tools and browser state
+.video-tools/
+.video-browser/
+video-production/raw/
+video-production/render-work/

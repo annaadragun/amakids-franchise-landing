@@ -9,6 +9,7 @@
     var leadTitle = document.getElementById('lead-title');
     var leadDescription = document.getElementById('lead-description');
     var leadSubmit = document.getElementById('lead-submit');
+    var formNote = document.querySelector('#partnership-form .form-note');
     var formView = document.getElementById('lead-form-view');
     var successView = document.getElementById('lead-success');
     var successTitle = document.getElementById('success-title');
@@ -44,16 +45,19 @@
                 leadTitle.textContent = 'Get a financial model for your country and format';
                 leadDescription.textContent = 'Tell us where you plan to operate and which partnership model you are considering.';
                 leadSubmit.innerHTML = 'Request my financial model <span aria-hidden="true">↗</span>';
+                formNote.textContent = 'In this local preview, your email app opens a draft. Send it to share your enquiry; contact details are not saved to a server.';
             } else if (type === 'proposal') {
                 leadKicker.textContent = 'Partnership proposal';
                 leadTitle.textContent = 'Request a Partnership Proposal';
                 leadDescription.textContent = 'Share a few details about your market, partnership model and development plans.';
                 leadSubmit.innerHTML = 'Request a proposal <span aria-hidden="true">↗</span>';
+                formNote.textContent = 'In this local preview, your email app opens a draft. Send it to share your enquiry; contact details are not saved to a server.';
             } else {
                 leadKicker.textContent = 'Partner overview';
                 leadTitle.textContent = 'Get the AMAkids partnership presentation';
                 leadDescription.textContent = 'Leave your contact details and choose the partnership model you are exploring.';
                 leadSubmit.innerHTML = 'Get the presentation <span aria-hidden="true">↗</span>';
+                formNote.textContent = 'The presentation downloads after the form. In this local preview, your email app opens a draft; send it to share your enquiry.';
             }
 
             if (!dialog.open) dialog.showModal();
