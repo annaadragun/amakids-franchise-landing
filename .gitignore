@@ -1,8 +1,13 @@
 # Local credentials and environment settings
 .env.local
+.env.*.local
 
 # Local video-production tools and browser state
 .video-tools/
 .video-browser/
+.video-edit-venv/
 video-production/raw/
 video-production/render-work/
+.audio-separation-venv/
+crm-production/raw/
+crm-production/render-work/
