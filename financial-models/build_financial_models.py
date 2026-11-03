@@ -383,29 +383,29 @@ def build_group_plan(wb: Workbook, products: Dict[str, int], demo: bool = False)
     ws = wb.create_sheet("02A_GROUP_PLAN")
     style_title(ws, "02A — Group expansion plan", 8)
     setup_sheet(ws, "A5")
-    headers = ["Product", "Months 1–6", "Months 7–12", "Months 13–24", "Months 25–60", "Opening target students", "Comment"]
+    headers = ["Product", "Months 1–6", "Months 7–12", "Months 13–24", "Months 25–60", "Expected opening students", "Year 1 target students", "Comment"]
     for c, h in enumerate(headers, 1):
         ws.cell(4, c, h)
     header_row(ws, 4, 1, len(headers))
-    for c, width in enumerate([25, 15, 15, 15, 15, 22, 58], 1):
+    for c, width in enumerate([25, 15, 15, 15, 15, 24, 22, 58], 1):
         ws.column_dimensions[get_column_letter(c)].width = width
     if demo:
         plans = [
-            (2, 2, 3, 4, 18, "Mental Arithmetic: two groups at launch"),
-            (3, 3, 4, 5, 24, "English: three groups at launch"),
-            (1, 2, 2, 2, 6, "Memorica: one opening cohort; two concurrent groups from month 7"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (2, 2, 3, 4, 9, 18, "Mental Arithmetic: two groups at launch"),
+            (3, 3, 4, 5, 12, 24, "English: three groups at launch"),
+            (1, 2, 2, 2, 3, 6, "Memorica: one opening cohort; two concurrent groups from month 7"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
         ]
     else:
         plans = [
-            (2, 2, 3, 4, 0, "Group expansion follows operating demand and available teachers"),
-            (2, 2, 3, 4, 0, "Group expansion follows operating demand and available teachers"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (2, 2, 3, 4, 0, 0, "Group expansion follows operating demand and available teachers"),
+            (2, 2, 3, 4, 0, 0, "Group expansion follows operating demand and available teachers"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
         ]
     start = 5
     for idx, product_row in enumerate(range(products["start"], products["end"] + 1)):
@@ -414,8 +414,9 @@ def build_group_plan(wb: Workbook, products: Dict[str, int], demo: bool = False)
         for c, value in enumerate(plans[idx][:4], 2):
             ws.cell(r, c, value); input_cell(ws.cell(r, c), "0")
         ws.cell(r, 6, plans[idx][4]); input_cell(ws.cell(r, 6), "0")
-        ws.cell(r, 7, plans[idx][5]); input_cell(ws.cell(r, 7))
-        ws.cell(r, 7).alignment = Alignment(wrap_text=True, vertical="top")
+        ws.cell(r, 7, plans[idx][5]); input_cell(ws.cell(r, 7), "0")
+        ws.cell(r, 8, plans[idx][6]); input_cell(ws.cell(r, 8))
+        ws.cell(r, 8).alignment = Alignment(wrap_text=True, vertical="top")
     end = start + len(plans) - 1
     total = end + 2
     ws.cell(total, 1, "Total groups by year").font = Font(bold=True, color=NAVY)
@@ -424,9 +425,11 @@ def build_group_plan(wb: Workbook, products: Dict[str, int], demo: bool = False)
         formula_cell(ws.cell(total, c), "0")
     ws.cell(total, 6, f"=SUM(F{start}:F{end})")
     formula_cell(ws.cell(total, 6), "0")
+    ws.cell(total, 7, f"=SUM(G{start}:G{end})")
+    formula_cell(ws.cell(total, 7), "0")
     ws.cell(total + 2, 1, "How it works").font = Font(bold=True, color=NAVY)
     ws.cell(total + 2, 2, "The monthly model uses the group count for the current model year. New students cannot exceed target capacity: groups × target students per group. Churn and non-renewal free places for new intake.")
-    ws.merge_cells(start_row=total + 2, start_column=2, end_row=total + 3, end_column=7)
+    ws.merge_cells(start_row=total + 2, start_column=2, end_row=total + 3, end_column=8)
     ws.cell(total + 2, 2).alignment = Alignment(wrap_text=True, vertical="top")
     return {"start": start, "end": end, "total": total}
 
@@ -881,11 +884,11 @@ def build_demo_presentation(wb: Workbook, model: Dict[str, int], meta: Dict[str,
     for col, width in widths.items():
         ws.column_dimensions[col].width = width
     ws.merge_cells("A3:I3")
-    ws["A3"] = "Opening target: 6 groups / 48 students | Mental Arithmetic, English and Memorica"
+    ws["A3"] = "Expected opening: 24 students | 12-month target: 48 students | 3 learning products"
     ws["A3"].font = Font(color=NAVY, bold=True, size=12)
     ws["A3"].alignment = Alignment(horizontal="left")
 
-    cards = [("B", "C", "OPENING TARGET"), ("D", "E", "YEAR 1"), ("F", "G", "YEAR 2"), ("H", "I", "YEAR 3")]
+    cards = [("B", "C", "EXPECTED OPENING"), ("D", "E", "YEAR 1"), ("F", "G", "YEAR 2"), ("H", "I", "YEAR 3")]
     for left, right, title in cards:
         ws.merge_cells(f"{left}5:{right}5")
         cell = ws[f"{left}5"]
@@ -893,7 +896,7 @@ def build_demo_presentation(wb: Workbook, model: Dict[str, int], meta: Dict[str,
         cell.font = Font(color=WHITE, bold=True, size=12)
         cell.alignment = Alignment(horizontal="center")
 
-    labels = ["Groups", "Students: target / year-end", "Net revenue", "EBITDA", "EBITDA margin"]
+    labels = ["Groups", "Students: opening / year-end", "Net revenue", "EBITDA", "EBITDA margin"]
     for r, label in enumerate(labels, 6):
         ws.cell(r, 1, label); ws.cell(r, 1).font = Font(bold=True, color=NAVY)
         ws.cell(r, 1).fill = PatternFill("solid", fgColor=LIGHT_BLUE)
