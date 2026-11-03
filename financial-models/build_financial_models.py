@@ -379,38 +379,51 @@ def build_products(wb: Workbook) -> Dict[str, int]:
     return {"start": start, "end": end, "total": total_row}
 
 
-def build_group_plan(wb: Workbook, products: Dict[str, int]) -> Dict[str, int]:
+def build_group_plan(wb: Workbook, products: Dict[str, int], demo: bool = False) -> Dict[str, int]:
     ws = wb.create_sheet("02A_GROUP_PLAN")
     style_title(ws, "02A — Group expansion plan", 8)
     setup_sheet(ws, "A5")
-    headers = ["Product", "Year 1 groups", "Year 2 groups", "Year 3 groups", "Year 4 groups", "Year 5 groups", "Comment"]
+    headers = ["Product", "Months 1–6", "Months 7–12", "Months 13–24", "Months 25–60", "Opening target students", "Comment"]
     for c, h in enumerate(headers, 1):
         ws.cell(4, c, h)
     header_row(ws, 4, 1, len(headers))
-    for c, width in enumerate([25, 15, 15, 15, 15, 15, 58], 1):
+    for c, width in enumerate([25, 15, 15, 15, 15, 22, 58], 1):
         ws.column_dimensions[get_column_letter(c)].width = width
-    plans = [
-        (2, 3, 4, 4, 4, "Center expands from two to four groups for this product"),
-        (2, 3, 4, 4, 4, "Center expands from two to four groups for this product"),
-        (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-        (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-        (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-        (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
-    ]
+    if demo:
+        plans = [
+            (2, 2, 3, 4, 18, "Mental Arithmetic: two groups at launch"),
+            (3, 3, 4, 5, 24, "English: three groups at launch"),
+            (1, 2, 2, 2, 6, "Memorica: one opening cohort; two concurrent groups from month 7"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+        ]
+    else:
+        plans = [
+            (2, 2, 3, 4, 0, "Group expansion follows operating demand and available teachers"),
+            (2, 2, 3, 4, 0, "Group expansion follows operating demand and available teachers"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+            (0, 0, 0, 0, 0, "Enable the product first on 02_PRODUCTS"),
+        ]
     start = 5
     for idx, product_row in enumerate(range(products["start"], products["end"] + 1)):
         r = start + idx
         ws.cell(r, 1, f"='02_PRODUCTS'!B{product_row}"); formula_cell(ws.cell(r, 1))
-        for c, value in enumerate(plans[idx][:5], 2):
+        for c, value in enumerate(plans[idx][:4], 2):
             ws.cell(r, c, value); input_cell(ws.cell(r, c), "0")
+        ws.cell(r, 6, plans[idx][4]); input_cell(ws.cell(r, 6), "0")
         ws.cell(r, 7, plans[idx][5]); input_cell(ws.cell(r, 7))
         ws.cell(r, 7).alignment = Alignment(wrap_text=True, vertical="top")
     end = start + len(plans) - 1
     total = end + 2
     ws.cell(total, 1, "Total groups by year").font = Font(bold=True, color=NAVY)
-    for c in range(2, 7):
+    for c in range(2, 6):
         ws.cell(total, c, f"=SUM({get_column_letter(c)}{start}:{get_column_letter(c)}{end})")
         formula_cell(ws.cell(total, c), "0")
+    ws.cell(total, 6, f"=SUM(F{start}:F{end})")
+    formula_cell(ws.cell(total, 6), "0")
     ws.cell(total + 2, 1, "How it works").font = Font(bold=True, color=NAVY)
     ws.cell(total + 2, 2, "The monthly model uses the group count for the current model year. New students cannot exceed target capacity: groups × target students per group. Churn and non-renewal free places for new intake.")
     ws.merge_cells(start_row=total + 2, start_column=2, end_row=total + 3, end_column=7)
@@ -528,7 +541,9 @@ def build_model(wb: Workbook, horizon: int, meta: Dict[str, Dict[str, int]]) -> 
         block = {"product_row": product_row, "section": current_row}
         block_labels = [
             ("Beginning enrolled students", "begin"),
-            ("Annual non-renewals", "annual_nonrenewal"), ("Monthly churn", "monthly_churn"),
+            ("Annual non-renewals", "annual_nonrenewal"),
+            ("Course completion / non-continuation", "course_noncontinuation"),
+            ("Monthly churn", "monthly_churn"),
             ("Retained students", "retained"),
             ("Allocated leads", "allocated_leads"), ("Demo bookings", "bookings"),
             ("Demo attendance", "attendance"), ("New-student demand", "demand"),
@@ -594,20 +609,26 @@ def build_model(wb: Workbook, horizon: int, meta: Dict[str, Dict[str, int]]) -> 
                 ws.cell(block["begin"], c, f"={prev_letter}{block['ending']}")
             retention = f"IF('02_PRODUCTS'!$Q${pr}>0,'02_PRODUCTS'!$Q${pr},'01_INPUTS'!$B$37)"
             ws.cell(block["annual_nonrenewal"], c,
-                    f"=IF(MONTH({letter}{rows['date']})=9,{letter}{block['begin']}*(1-{retention}),0)")
+                    f"=IF(AND('02_PRODUCTS'!$R${pr}>=9,MONTH({letter}{rows['date']})=9),{letter}{block['begin']}*(1-{retention}),0)")
+            ws.cell(block["course_noncontinuation"], c,
+                    f"=IF(AND('02_PRODUCTS'!$R${pr}<9,{letter}{rows['month_no']}>1,MOD({letter}{rows['month_no']}-1,'02_PRODUCTS'!$R${pr})=0),{letter}{block['begin']}*(1-{retention}),0)")
             ws.cell(block["monthly_churn"], c,
-                    f"=IF(MONTH({letter}{rows['date']})=9,0,{letter}{block['begin']}*'02_PRODUCTS'!$P${pr}*'01_INPUTS'!$B${mult['churn_mult']}*{letter}{rows['billing_factor']})")
+                    f"=IF(OR({letter}{block['annual_nonrenewal']}>0,{letter}{block['course_noncontinuation']}>0),0,{letter}{block['begin']}*'02_PRODUCTS'!$P${pr}*'01_INPUTS'!$B${mult['churn_mult']}*{letter}{rows['billing_factor']})")
             ws.cell(block["retained"], c,
-                    f"={letter}{block['begin']}-{letter}{block['annual_nonrenewal']}-{letter}{block['monthly_churn']}")
+                    f"={letter}{block['begin']}-{letter}{block['annual_nonrenewal']}-{letter}{block['course_noncontinuation']}-{letter}{block['monthly_churn']}")
             ws.cell(block["allocated_leads"], c, f"={letter}{rows['total_leads']}*'02_PRODUCTS'!$O${pr}*{enabled}")
             ws.cell(block["bookings"], c, f"={letter}{block['allocated_leads']}*'01_INPUTS'!$B$33")
             ws.cell(block["attendance"], c, f"={letter}{block['bookings']}*'01_INPUTS'!$B$34")
             ws.cell(block["demand"], c,
                     f"=({letter}{block['attendance']}*'01_INPUTS'!$B$35+'01_INPUTS'!$B$36*'02_PRODUCTS'!$O${pr})*'01_INPUTS'!$B${mult['demand_mult']}*{letter}{rows['sales_factor']}")
             group_plan_row = meta["group_plan"]["start"] + (pr - product_meta["start"])
-            planned_groups = f"INDEX('02A_GROUP_PLAN'!$B${group_plan_row}:$F${group_plan_row},1,MIN({letter}{rows['year']},5))"
+            planned_groups = (
+                f"IF({letter}{rows['month_no']}<=6,'02A_GROUP_PLAN'!$B${group_plan_row},"
+                f"IF({letter}{rows['month_no']}<=12,'02A_GROUP_PLAN'!$C${group_plan_row},"
+                f"IF({letter}{rows['month_no']}<=24,'02A_GROUP_PLAN'!$D${group_plan_row},'02A_GROUP_PLAN'!$E${group_plan_row})))"
+            )
             ws.cell(block["new_students"], c,
-                    f"=MIN({letter}{block['demand']},MAX(0,{enabled}*{planned_groups}*'02_PRODUCTS'!$H${pr}-{letter}{block['retained']}))")
+                    f"=IF(AND({letter}{rows['month_no']}=1,'02A_GROUP_PLAN'!$F${group_plan_row}>0),MIN('02A_GROUP_PLAN'!$F${group_plan_row},{enabled}*{planned_groups}*'02_PRODUCTS'!$H${pr}),MIN({letter}{block['demand']},MAX(0,{enabled}*{planned_groups}*'02_PRODUCTS'!$H${pr}-{letter}{block['retained']})))")
             ws.cell(block["ending"], c, f"={letter}{block['retained']}+{letter}{block['new_students']}")
             ws.cell(block["billed"], c, f"={letter}{block['ending']}*{letter}{rows['billing_factor']}")
             ws.cell(block["groups"], c,
@@ -630,7 +651,7 @@ def build_model(wb: Workbook, horizon: int, meta: Dict[str, Dict[str, int]]) -> 
         ws.cell(rows["total_students"], c, f"={sum_blocks('ending')}")
         ws.cell(rows["total_billed"], c, f"={sum_blocks('billed')}")
         ws.cell(rows["total_new"], c, f"={sum_blocks('new_students')}")
-        ws.cell(rows["total_outflow"], c, f"={sum_blocks('annual_nonrenewal')}+{sum_blocks('monthly_churn')}")
+        ws.cell(rows["total_outflow"], c, f"={sum_blocks('annual_nonrenewal')}+{sum_blocks('course_noncontinuation')}+{sum_blocks('monthly_churn')}")
         ws.cell(rows["summary_leads"], c, f"={letter}{rows['total_leads']}")
         ws.cell(rows["gross_revenue"], c, f"={sum_blocks('gross_revenue')}")
         ws.cell(rows["net_tuition"], c, f"={sum_blocks('net_revenue')}")
@@ -663,7 +684,12 @@ def build_model(wb: Workbook, horizon: int, meta: Dict[str, Dict[str, int]]) -> 
         for block in product_blocks:
             pr = block["product_row"]
             gp_row = meta["group_plan"]["start"] + (pr - product_meta["start"])
-            capacity_terms.append(f"'02_PRODUCTS'!$A${pr}*'02_PRODUCTS'!$H${pr}*INDEX('02A_GROUP_PLAN'!$B${gp_row}:$F${gp_row},1,MIN({letter}{rows['year']},5))")
+            planned_capacity_groups = (
+                f"IF({letter}{rows['month_no']}<=6,'02A_GROUP_PLAN'!$B${gp_row},"
+                f"IF({letter}{rows['month_no']}<=12,'02A_GROUP_PLAN'!$C${gp_row},"
+                f"IF({letter}{rows['month_no']}<=24,'02A_GROUP_PLAN'!$D${gp_row},'02A_GROUP_PLAN'!$E${gp_row})))"
+            )
+            capacity_terms.append(f"'02_PRODUCTS'!$A${pr}*'02_PRODUCTS'!$H${pr}*({planned_capacity_groups})")
         ws.cell(rows["capacity_utilization"], c,
                 f"=IFERROR({letter}{rows['total_billed']}/({'+'.join(capacity_terms)}),0)")
         ws.cell(rows["ebitda_margin"], c, f"=IFERROR({letter}{rows['ebitda']}/{letter}{rows['net_revenue']},0)")
@@ -758,7 +784,7 @@ def build_dashboard(wb: Workbook, horizon: int, model: Dict[str, int], meta: Dic
         ("B7", "Year 1 net revenue", "C7", "='07_ANNUAL'!B4", '€#,##0'),
         ("B9", "Year 1 EBITDA", "C9", "='07_ANNUAL'!B6", '€#,##0'),
         ("B11", "Year 1 EBITDA margin", "C11", "='07_ANNUAL'!B7", '0.0%'),
-        ("E5", "Year 1 planned capacity", "F5", "=SUMPRODUCT('02A_GROUP_PLAN'!B5:B10,'02_PRODUCTS'!H5:H10,'02_PRODUCTS'!A5:A10)", '#,##0'),
+        ("E5", "Opening planned capacity", "F5", "=SUMPRODUCT('02A_GROUP_PLAN'!B5:B10,'02_PRODUCTS'!H5:H10,'02_PRODUCTS'!A5:A10)", '#,##0'),
         ("E7", "Year 1 avg billed / calendar month", "F7", "='07_ANNUAL'!B12", '#,##0.0'),
         ("E9", "Year 2 avg billed / calendar month", "F9", "='07_ANNUAL'!C12", '#,##0.0'),
         ("E11", "Year 2 EBITDA margin", "F11", "='07_ANNUAL'!C7", '0.0%'),
@@ -784,8 +810,8 @@ def build_dashboard(wb: Workbook, horizon: int, model: Dict[str, int], meta: Dic
         ws[a].font = Font(bold=True, size=15, color=ORANGE); ws[a].fill = PatternFill("solid", fgColor=YELLOW); ws[a].border = border
     ws["C15"].number_format = '€#,##0'
     extra_capacity = [
-        ("B17", "Year 2 planned capacity", "C17", "=SUMPRODUCT('02A_GROUP_PLAN'!C5:C10,'02_PRODUCTS'!H5:H10,'02_PRODUCTS'!A5:A10)"),
-        ("E17", "Year 3 planned capacity", "F17", "=SUMPRODUCT('02A_GROUP_PLAN'!D5:D10,'02_PRODUCTS'!H5:H10,'02_PRODUCTS'!A5:A10)"),
+        ("B17", "Month 7 planned capacity", "C17", "=SUMPRODUCT('02A_GROUP_PLAN'!C5:C10,'02_PRODUCTS'!H5:H10,'02_PRODUCTS'!A5:A10)"),
+        ("E17", "Year 2 planned capacity", "F17", "=SUMPRODUCT('02A_GROUP_PLAN'!D5:D10,'02_PRODUCTS'!H5:H10,'02_PRODUCTS'!A5:A10)"),
     ]
     for label_addr, label, value_addr, formula in extra_capacity:
         ws[label_addr] = label; ws[value_addr] = formula
@@ -828,9 +854,9 @@ def build_dashboard(wb: Workbook, horizon: int, model: Dict[str, int], meta: Dic
         ("Course VAT treatment in demo", '=IF(SUM(\'02_PRODUCTS\'!D5:D6)=0,"Exempt","Taxable")', "validate local authorization and legislation"),
         ("Corporate income tax", "='01_INPUTS'!B8", "on positive EBIT"),
         ("Royalty", "='01_INPUTS'!B10", "on net revenue"),
-        ("Planned groups — Year 1", "='02A_GROUP_PLAN'!B12", "2 per course"),
-        ("Planned groups — Year 2", "='02A_GROUP_PLAN'!C12", "3 per course"),
-        ("Planned groups — Year 3", "='02A_GROUP_PLAN'!D12", "4 per course"),
+        ("Planned groups — launch", "='02A_GROUP_PLAN'!B12", "2 per course"),
+        ("Planned groups — month 7", "='02A_GROUP_PLAN'!C12", "3 per course in the demo"),
+        ("Planned groups — Year 2", "='02A_GROUP_PLAN'!D12", "4 per course in the demo"),
         ("Target students per group", "=AVERAGE('02_PRODUCTS'!H5:H6)", "normal target, below maximum"),
     ]
     for i, (label, formula, note) in enumerate(assumptions, 26):
@@ -846,6 +872,85 @@ def build_dashboard(wb: Workbook, horizon: int, model: Dict[str, int], meta: Dic
     ws["B35"].font = Font(color=RED, bold=True)
 
 
+def build_demo_presentation(wb: Workbook, model: Dict[str, int], meta: Dict[str, Dict[str, int]]) -> None:
+    ws = wb.create_sheet("08_DASHBOARD")
+    style_title(ws, "ONE CENTER — 3-YEAR FINANCIAL SNAPSHOT", 9)
+    setup_sheet(ws, "B5")
+    ws.sheet_view.showGridLines = False
+    widths = {"A": 25, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14, "G": 14, "H": 14, "I": 14}
+    for col, width in widths.items():
+        ws.column_dimensions[col].width = width
+    ws.merge_cells("A3:I3")
+    ws["A3"] = "Opening target: 6 groups / 48 students | Mental Arithmetic, English and Memorica"
+    ws["A3"].font = Font(color=NAVY, bold=True, size=12)
+    ws["A3"].alignment = Alignment(horizontal="left")
+
+    cards = [("B", "C", "OPENING TARGET"), ("D", "E", "YEAR 1"), ("F", "G", "YEAR 2"), ("H", "I", "YEAR 3")]
+    for left, right, title in cards:
+        ws.merge_cells(f"{left}5:{right}5")
+        cell = ws[f"{left}5"]
+        cell.value = title; cell.fill = PatternFill("solid", fgColor=NAVY)
+        cell.font = Font(color=WHITE, bold=True, size=12)
+        cell.alignment = Alignment(horizontal="center")
+
+    labels = ["Groups", "Students: target / year-end", "Net revenue", "EBITDA", "EBITDA margin"]
+    for r, label in enumerate(labels, 6):
+        ws.cell(r, 1, label); ws.cell(r, 1).font = Font(bold=True, color=NAVY)
+        ws.cell(r, 1).fill = PatternFill("solid", fgColor=LIGHT_BLUE)
+        ws.cell(r, 1).border = border
+
+    annual_cols = [None, "B", "C", "D"]
+    group_cols = ["B", "C", "D", "E"]
+    card_lefts = ["B", "D", "F", "H"]
+    for idx, left in enumerate(card_lefts):
+        right = get_column_letter(ord(left) - 64 + 1)
+        values = []
+        if idx == 0:
+            values = ["='02A_GROUP_PLAN'!B12", "='02A_GROUP_PLAN'!F12", '="—"', '="—"', '="—"']
+        else:
+            ac = annual_cols[idx]
+            values = [
+                f"='02A_GROUP_PLAN'!{group_cols[idx]}12",
+                f"='07_ANNUAL'!{ac}13",
+                f"='07_ANNUAL'!{ac}4",
+                f"='07_ANNUAL'!{ac}6",
+                f"='07_ANNUAL'!{ac}7",
+            ]
+        for row, formula in enumerate(values, 6):
+            ws.merge_cells(start_row=row, start_column=ord(left)-64, end_row=row, end_column=ord(left)-63)
+            c = ws.cell(row, ord(left)-64, formula)
+            c.fill = PatternFill("solid", fgColor=PALE_BLUE if idx else YELLOW)
+            c.border = border; c.alignment = Alignment(horizontal="center")
+            c.font = Font(bold=True, size=13, color=GREEN if idx else NAVY)
+            if row in (8, 9): c.number_format = '€#,##0;[Red]-€#,##0'
+            elif row == 10: c.number_format = "0.0%"
+
+    last_col = wb["06_MODEL"].cell(2, model["last_col"]).column_letter
+    section(ws, 13, "KEY INVESTMENT INDICATORS", 9)
+    indicators = [
+        ("A14:C14", "A15:C16", "OPENING INVESTMENT", f"='04_CAPEX'!B{meta['capex']['total']}", '€#,##0'),
+        ("D14:F14", "D15:F16", "OPERATING BREAK-EVEN", f'=IFERROR("MONTH "&MATCH(1,INDEX(--(\'06_MODEL\'!B{model["ebitda"]}:{last_col}{model["ebitda"]}>0),0),0),"N/A")', '@'),
+        ("G14:I14", "G15:I16", "INVESTMENT PAYBACK", f'=IFERROR(MATCH(1,INDEX(--(\'06_MODEL\'!B{model["cumulative_cf"]}:{last_col}{model["cumulative_cf"]}>=0),0),0)&" MONTHS","BEYOND HORIZON")', '@'),
+    ]
+    for label_range, value_range, label, formula, fmt in indicators:
+        ws.merge_cells(label_range); ws.merge_cells(value_range)
+        lc = ws[label_range.split(":")[0]]; vc = ws[value_range.split(":")[0]]
+        lc.value = label; lc.font = Font(bold=True, color=NAVY); lc.alignment = Alignment(horizontal="center")
+        lc.fill = PatternFill("solid", fgColor=LIGHT_BLUE); lc.border = border
+        vc.value = formula; vc.font = Font(bold=True, size=17, color=GREEN); vc.alignment = Alignment(horizontal="center", vertical="center")
+        vc.fill = PatternFill("solid", fgColor=LIGHT_GREEN); vc.border = border; vc.number_format = fmt
+
+    ws.merge_cells("A18:I18")
+    ws["A18"] = "Staffing included: administrator from launch, full administrator capacity from month 7, and 0.5 FTE center director from Year 2."
+    ws["A18"].alignment = Alignment(horizontal="center", wrap_text=True)
+    ws["A18"].font = Font(italic=True, color="44546A")
+    ws.merge_cells("A20:I21")
+    ws["A20"] = "Illustrative model. Results depend on actual enrollment, retention, local taxation and operating costs."
+    ws["A20"].alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    ws["A20"].fill = PatternFill("solid", fgColor=LIGHT_RED)
+    ws["A20"].font = Font(color=RED, bold=True)
+
+
 def build_checks(wb: Workbook, meta: Dict[str, Dict[str, int]], model: Dict[str, int]) -> None:
     ws = wb.create_sheet("09_CHECKS")
     style_title(ws, "09 — Model checks", 5)
@@ -858,7 +963,7 @@ def build_checks(wb: Workbook, meta: Dict[str, Dict[str, int]], model: Dict[str,
     last_col = wb["06_MODEL"].cell(2, model["last_col"]).column_letter
     checks = [
         ("Enabled-product lead shares equal 100%", f'=IF(ABS(\'02_PRODUCTS\'!O{p["total"]}-1)<0.0001,"OK","CHECK")', "Otherwise some leads disappear or are double-counted."),
-        ("Year 5 planned capacity does not exceed target market", '=IF(SUMPRODUCT(\'02A_GROUP_PLAN\'!F5:F10,\'02_PRODUCTS\'!H5:H10,\'02_PRODUCTS\'!A5:A10)<=\'01_INPUTS\'!B25,"OK","REVIEW")', "A capacity above target market may still be valid but needs evidence."),
+        ("Long-term planned capacity does not exceed target market", '=IF(SUMPRODUCT(\'02A_GROUP_PLAN\'!E5:E10,\'02_PRODUCTS\'!H5:H10,\'02_PRODUCTS\'!A5:A10)<=\'01_INPUTS\'!B25,"OK","REVIEW")', "A capacity above target market may still be valid but needs evidence."),
         ("Corporate tax is between 0% and 40%", '=IF(AND(\'01_INPUTS\'!B8>=0,\'01_INPUTS\'!B8<=0.4),"OK","CHECK")', "Tax should be a decimal percentage."),
         ("VAT is between 0% and 30%", '=IF(AND(\'01_INPUTS\'!B9>=0,\'01_INPUTS\'!B9<=0.3),"OK","CHECK")', "VAT should be a decimal percentage."),
         ("No negative ending students", f'=IF(MIN(\'06_MODEL\'!B{model["total_students"]}:{last_col}{model["total_students"]})>=0,"OK","ERROR")', "Student stock must never be negative."),
@@ -881,14 +986,33 @@ def build_workbook(path: Path, horizon: int, demo: bool) -> None:
     build_readme(wb, demo)
     inputs = build_inputs(wb, horizon)
     products = build_products(wb)
-    group_plan = build_group_plan(wb, products)
+    if demo:
+        wb["01_INPUTS"]["B4"] = "Base"
+        wb["01_INPUTS"]["B29"] = 450  # launch paid-media budget
+        wb["01_INPUTS"]["B31"] = 7    # CPL
+        pws = wb["02_PRODUCTS"]
+        mental, english, memorica = products["start"], products["start"] + 1, products["start"] + 2
+        for row, values in {
+            mental:   {1: 1, 3: 110, 4: 0, 7: 2, 8: 9, 9: 12, 15: 0.35, 16: 0.03, 17: 0.70, 18: 10},
+            english:  {1: 1, 3: 100, 4: 0, 7: 3, 8: 8, 9: 10, 15: 0.45, 16: 0.03, 17: 0.70, 18: 10},
+            memorica: {1: 1, 3: 100, 4: 0, 7: 1, 8: 6, 9: 8, 12: 25, 13: 25, 14: 12, 15: 0.20, 16: 0.03, 17: 0.70, 18: 3},
+        }.items():
+            for col, value in values.items():
+                pws.cell(row, col, value)
+    group_plan = build_group_plan(wb, products, demo=demo)
     staff = build_staff(wb)
+    if demo:
+        wb["03_STAFF"].cell(staff["start"] + 1, 6, 7)   # Additional administrator from month 7
+        wb["03_STAFF"].cell(staff["start"] + 3, 6, 13)  # Center manager from month 13
     capex = build_capex(wb)
     build_scenarios(wb)
     meta = {"inputs": inputs, "products": products, "group_plan": group_plan, "staff": staff, "capex": capex}
     model = build_model(wb, horizon, meta)
     build_annual(wb, horizon, model)
-    build_dashboard(wb, horizon, model, meta, demo)
+    if demo:
+        build_demo_presentation(wb, model, meta)
+    else:
+        build_dashboard(wb, horizon, model, meta, demo)
     build_checks(wb, meta, model)
     if demo:
         # Keep all formula support sheets available but place the presentation first.
@@ -984,8 +1108,6 @@ if __name__ == "__main__":
     build_workbook(DEMO_PATH, 36, demo=True)
     validate_workbook(INTERNAL_PATH, 60)
     validate_workbook(DEMO_PATH, 36)
-    result = simulate_demo(60)
     print(f"Created: {INTERNAL_PATH}")
     print(f"Created: {DEMO_PATH}")
-    for key, value in result.items():
-        print(f"{key}={value:.2f}")
+    print("Both workbooks passed structural validation.")
