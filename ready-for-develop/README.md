@@ -2,6 +2,8 @@
 
 This folder is the handoff package and the canonical source for the static landing page. Make page and asset changes here. GitHub Pages deploys this folder from the `main` branch.
 
+The hero now summarizes the launch toolkit (methodology, team training, platform and CRM). Repeated advantage cards and the duplicate partnership steps have been removed; the page keeps one three-step path to a conversation.
+
 ## Preview locally
 
 Open `ready-for-develop/index.html` with VS Code Live Server, or serve this folder as the web root. All page assets use relative paths, so the package also works under a project subpath.
@@ -13,7 +15,7 @@ Open `ready-for-develop/index.html` with VS Code Live Server, or serve this fold
 - `assets/js/franchise.js` — navigation, lead form and presentation download behavior.
 - `assets/images/` — logos, page photography, event photos and video covers. Editable cover artwork is in `posters/covers/*.svg`; the page uses matching JPG files.
 - `assets/videos/` — the five videos used on the page.
-- `assets/downloads/` — partnership presentation PDF.
+- `assets/downloads/` — production partnership presentation PDF and its editable PPTX source.
 - `CONTENT-PLAN.md` — current page structure, content boundaries and FAQ notes.
 
 ## Lead form note
