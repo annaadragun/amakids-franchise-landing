@@ -16,19 +16,6 @@
     var successDescription = document.getElementById('success-description');
     var presentationDownload = document.getElementById('presentation-download');
 
-    if (nav && menuButton) {
-        menuButton.addEventListener('click', function () {
-            var isOpen = nav.classList.toggle('is-open');
-            menuButton.setAttribute('aria-expanded', String(isOpen));
-        });
-        nav.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                nav.classList.remove('is-open');
-                menuButton.setAttribute('aria-expanded', 'false');
-            });
-        });
-    }
-
     document.querySelectorAll('[data-open-lead]').forEach(function (trigger) {
         trigger.addEventListener('click', function () {
             var requestedModel = trigger.getAttribute('data-model');

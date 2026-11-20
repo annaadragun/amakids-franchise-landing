@@ -1,0 +1,38 @@
+name: Create versioned release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v6
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.ref_name }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          cat > release-notes.md <<EOF
+          ## Published site
+
+          - [Open this exact version](https://annaadragun.github.io/amakids-franchise-landing/versions/${TAG_NAME}/)
+          - [Open the latest version](https://annaadragun.github.io/amakids-franchise-landing/)
+
+          GitHub also attaches ZIP and TAR archives containing the complete source at this tag.
+          EOF
+
+          gh release create "$TAG_NAME" \
+            --repo "$REPOSITORY" \
+            --verify-tag \
+            --title "AMAkids franchise site ${TAG_NAME}" \
+            --notes-file release-notes.md

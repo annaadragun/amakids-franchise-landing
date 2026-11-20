@@ -1,6 +1,7 @@
 # Local credentials and environment settings
 .env.local
 .env.*.local
+.DS_Store
 
 # Local video-production tools and browser state
 .video-tools/

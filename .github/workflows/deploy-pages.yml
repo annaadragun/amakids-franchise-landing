@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "v*"
   workflow_dispatch:
 
 permissions:
@@ -24,6 +26,21 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Assemble latest site and versioned previews
+        shell: bash
+        run: |
+          mkdir -p public/versions
+          cp -R ready-for-develop/. public/
+
+          while IFS= read -r tag; do
+            mkdir -p "public/versions/$tag"
+            git archive --format=tar "$tag" ready-for-develop/ \
+              | tar -x --strip-components=1 -C "public/versions/$tag"
+          done < <(git tag --list 'v*' --sort=version:refname)
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -31,7 +48,7 @@ jobs:
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ready-for-develop
+          path: public
 
       - name: Deploy to GitHub Pages
         id: deployment
