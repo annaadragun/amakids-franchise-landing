@@ -20,9 +20,10 @@
 ## Publishing and versions
 
 - A push to `main` republishes the latest site at the root GitHub Pages URL.
-- A tag matching `v*` creates a GitHub Release and publishes an immutable live preview at `/versions/<tag>/`.
+- A tag matching `v*` creates a GitHub Release, registers the tag on `main`, and publishes an immutable live preview at `/versions/<tag>/`.
 - Never move, replace, or recreate a published version tag. Create the next semantic version instead.
 - Keep the Pages assembly rooted at `ready-for-develop/`; the workflow-generated `public/` directory must not be committed.
+- `.github/published-version-tags.txt` is the small automation registry that gives every release-triggered Pages deployment a unique `main` commit. Do not remove released tags from it.
 
 ## Before finishing a page change
 

@@ -59,5 +59,6 @@ The homepage form is a prototype flow: it prepares an email draft and downloads 
 - Tags matching `v*` create a GitHub Release and publish that exact source under `https://annaadragun.github.io/amakids-franchise-landing/versions/<tag>/`.
 - GitHub automatically attaches ZIP and TAR source archives to every release.
 - Published tags are permanent snapshots. Make changes on `main`, then create a new semantic version tag such as `v0.2.0`.
+- Release automation records the new tag in `.github/published-version-tags.txt`; that small `main` commit triggers the Pages rebuild without committing generated site copies.
 
 The workflows are `.github/workflows/deploy-pages.yml` and `.github/workflows/release.yml`. No Python, Node, package manager or generated build output is required.

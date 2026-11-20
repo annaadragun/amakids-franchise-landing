@@ -8,12 +8,18 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: version-publishing
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Check out tagged source
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Publish GitHub Release
         env:
@@ -36,3 +42,26 @@ jobs:
             --verify-tag \
             --title "AMAkids franchise site ${TAG_NAME}" \
             --notes-file release-notes.md
+
+      - name: Register version for GitHub Pages
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          git fetch origin main
+          git switch --force-create main origin/main
+
+          if ! grep -Fxq "$TAG_NAME" .github/published-version-tags.txt 2>/dev/null; then
+            printf '%s\n' "$TAG_NAME" >> .github/published-version-tags.txt
+          fi
+
+          git add .github/published-version-tags.txt
+          if git diff --cached --quiet; then
+            echo "$TAG_NAME is already registered."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Register ${TAG_NAME} for Pages preview"
+          git push origin main

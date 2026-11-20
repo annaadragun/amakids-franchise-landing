@@ -25,4 +25,6 @@ GitHub Pages serves directory indexes, giving clean URLs such as `/programs/`. T
 
 ## Release behavior
 
-`main` is the editable latest site. A `v*` tag captures an immutable commit. During deployment, the workflow copies the latest source to the site root and extracts every version tag's `ready-for-develop/` tree into `/versions/<tag>/`. The release workflow adds a matching GitHub Release with a direct preview link and source archives.
+`main` is the editable latest site. A `v*` tag captures an immutable commit. The release workflow adds a matching GitHub Release, records the tag in `.github/published-version-tags.txt`, and pushes that registry update to `main`. That unique commit starts Pages deployment. During deployment, the workflow copies the latest source to the site root and extracts every version tag's `ready-for-develop/` tree into `/versions/<tag>/`.
+
+The small registry commit avoids a GitHub Pages edge case where a tag and the latest branch share the same commit SHA: Pages can otherwise reuse the previous deployment even when the uploaded artifact contains a new version directory. No generated site copy is committed to the repository.
