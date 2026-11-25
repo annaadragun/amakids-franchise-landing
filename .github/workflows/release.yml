@@ -6,6 +6,7 @@ on:
       - "v*"
 
 permissions:
+  actions: write
   contents: write
 
 concurrency:
@@ -28,7 +29,12 @@ jobs:
           REPOSITORY: ${{ github.repository }}
         shell: bash
         run: |
-          cat > release-notes.md <<EOF
+          if gh release view "$TAG_NAME" --repo "$REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $TAG_NAME already exists."
+            exit 0
+          fi
+
+          cat > "$RUNNER_TEMP/release-notes.md" <<EOF
           ## Published site
 
           - [Open this exact version](https://annaadragun.github.io/amakids-franchise-landing/versions/${TAG_NAME}/)
@@ -37,11 +43,13 @@ jobs:
           GitHub also attaches ZIP and TAR archives containing the complete source at this tag.
           EOF
 
+          git for-each-ref --format='%(contents:body)' "refs/tags/$TAG_NAME" >> "$RUNNER_TEMP/release-notes.md"
+
           gh release create "$TAG_NAME" \
             --repo "$REPOSITORY" \
             --verify-tag \
             --title "AMAkids franchise site ${TAG_NAME}" \
-            --notes-file release-notes.md
+            --notes-file "$RUNNER_TEMP/release-notes.md"
 
       - name: Register version for GitHub Pages
         env:
@@ -65,3 +73,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Register ${TAG_NAME} for Pages preview"
           git push origin main
+
+      - name: Start Pages deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: gh workflow run deploy-pages.yml --repo "$REPOSITORY" --ref main

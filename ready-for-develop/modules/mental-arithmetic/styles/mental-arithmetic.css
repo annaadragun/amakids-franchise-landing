@@ -1,0 +1,249 @@
+@font-face{font-family:ClearSans;src:url(../../../shared/fonts/ClearSans-Regular.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:ClearSans;src:url(../../../shared/fonts/ClearSans-Medium.ttf) format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:ClearSans;src:url(../../../shared/fonts/ClearSans-Bold.ttf) format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:Exo;src:url(../../../shared/fonts/exo2/Exo2-SemiBold.ttf) format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:Exo;src:url(../../../shared/fonts/exo2/Exo2-Bold.ttf) format("truetype");font-weight:700;font-display:swap}
+
+:root{--pink:#f50882;--pink-light:#fff5fa;--cyan:#03a0e3;--ink:#333;--body:#666;--pale:#f0faff;--gradient:linear-gradient(112.9deg,#f50882 11.26%,#8458bd 32.1%,#5c75d1 76.53%,#4089e0 103.89%,#03b4ff 106.52%)}
+*{box-sizing:border-box}
+html{min-width:320px;scroll-behavior:smooth}
+body{margin:0;color:var(--body);background:#fff;font:400 18px/1.4 ClearSans,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body.modal-open{overflow:hidden}
+button,input,select{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+[hidden]{display:none!important}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.program-container{width:min(1140px,calc(100% - 30px));margin-inline:auto}
+
+.program-header{position:relative;z-index:20;background:#fff}
+.program-header__top{height:63px;background:linear-gradient(119.65deg,#f50882 -16.7%,#8259bd 28.69%,#03b4ff 131.03%)}
+.program-header__top-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.program-header__logo img{width:171px;height:31px}
+.program-header__actions{display:flex;align-items:center;gap:30px}
+.program-button{display:inline-flex;align-items:center;justify-content:center;width:120px;height:45px;border-radius:10px;font:700 18px/1 Exo,sans-serif}
+.program-button--outline{border:1px solid var(--pink);background:var(--pink-light);color:#ff2796}
+.language-menu{position:relative}
+.language-menu__button{display:flex;align-items:center;gap:8px;padding:12px 0;border:0;background:transparent;color:#fff;font:700 18px/1.2 ClearSans,sans-serif;cursor:pointer}
+.language-menu__button img{width:17px;height:17px}
+.language-menu__panel,.program-nav__panel{position:absolute;display:none;z-index:50;border:1px solid #ccc;border-radius:10px;background:#fff;box-shadow:5px 10px 25px rgba(104,104,104,.1)}
+.language-menu.is-open .language-menu__panel,.program-nav__dropdown.is-open .program-nav__panel{display:grid}
+.language-menu__panel{top:50px;right:-8px;width:220px;padding:20px 25px}
+.language-menu__panel a{padding:6px 0;color:var(--ink);font-size:15px}
+.language-menu__panel a:hover{color:var(--cyan)}
+
+.program-header__desktop-nav{height:76px;background:#fff}
+.program-nav{height:76px;display:flex;align-items:center;gap:34px}
+.program-nav>a,.program-nav__dropdown>button{border:0;background:transparent;color:var(--ink);font:700 18px/1.2 ClearSans,sans-serif;cursor:pointer}
+.program-nav>a:hover,.program-nav__dropdown>button:hover{color:var(--cyan)}
+.program-nav__dropdown{position:relative}
+.program-nav__panel{top:48px;left:0;width:360px;padding:30px}
+.program-nav__panel a{padding:10px 0;color:var(--ink);font-size:18px;font-weight:400}
+.program-nav__panel a.is-current{color:var(--cyan)}
+.program-header__mobile-nav{display:none}
+
+@media (min-width:768px){
+    .language-menu:hover .language-menu__panel,.language-menu:focus-within .language-menu__panel,.program-nav__dropdown:hover .program-nav__panel,.program-nav__dropdown:focus-within .program-nav__panel{display:grid}
+}
+
+.mental-page h1,.mental-page h2,.mental-page h3,.entrepreneur-section h2,.program-footer h2,.enrollment-dialog h2,.enrollment-dialog h3{font-family:Exo,ClearSans,sans-serif;color:var(--ink)}
+.mental-page h2{margin:0 0 12px;font-size:32px;line-height:1.4;letter-spacing:.02em;text-transform:uppercase}
+.mental-page h3{margin:16px 0 0;font-size:24px;line-height:1.2;text-transform:uppercase}
+.mental-page p{margin:0;font-size:18px;line-height:1.4;letter-spacing:.02em}
+.mental-hero{min-height:600px;background-image:url(../images/head-background.webp),var(--gradient);background-repeat:no-repeat;background-position:right bottom,left center;background-size:min(calc(50vw + 15px),948px) auto,100% 100%}
+.mental-hero__content{padding-top:64px}
+.mental-hero h1{max-width:555px;margin:0;color:#fff;font-size:48px;line-height:1.34;letter-spacing:.02em;text-transform:uppercase}
+.mental-hero p{max-width:492px;margin-top:6px;color:#fff;font:400 24px/1.2 Exo,sans-serif}
+.enroll-button{display:inline-flex;align-items:center;justify-content:center;width:364px;max-width:100%;min-height:54px;padding:0 22px;border:1px solid var(--pink);border-radius:10px;background:var(--pink);color:#fff;font:700 18px/1.2 Exo,sans-serif;letter-spacing:.02em;text-align:center;cursor:pointer}
+.enroll-button:hover{background:#ff2796}
+.mental-hero .enroll-button{margin-top:36px}
+
+.illustrated-section{min-height:390px;display:flex;align-items:flex-start}
+.illustrated-section__copy{width:58%;padding-top:128px}
+.illustrated-section__image{position:relative;flex:1;min-height:390px}
+.illustrated-section__image img{position:absolute;top:55px;left:15px;width:461px;max-width:none}
+.gradient-band{margin-top:128px;background:var(--gradient)}
+.overflow-feature{min-height:375px;display:flex}
+.overflow-feature__image,.overflow-feature__copy{width:50%;padding-inline:15px}
+.overflow-feature__image{position:relative}
+.overflow-feature__image img{position:absolute;left:15px;bottom:0;width:461px;max-width:calc(100% - 30px)}
+.overflow-feature__copy{padding-top:64px}
+.overflow-feature h2,.overflow-feature p{color:#fff}
+
+.skill-section{padding-top:128px}
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+.skill-card{height:404px;padding:32px;border:1px solid rgba(204,204,204,.5);border-radius:20px;background:#fafafa}
+.skill-card img{width:auto;height:130px;object-fit:contain}
+.skill-card p{margin-top:14px}
+.section-cta{min-height:230px;display:flex;align-items:flex-start;justify-content:center;padding-top:64px}
+
+.gradient-band--classes{margin-top:0}
+.age-section{padding-top:128px}
+.age-section>h2{margin-bottom:48px}
+.age-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.age-card{overflow:hidden;border:1.5px solid rgba(204,204,204,.5);border-radius:20px;background:#fff;box-shadow:2px 2px 7px rgba(0,0,0,.1)}
+.age-card>img{width:100%;aspect-ratio:364/246;object-fit:cover}
+.age-card>div{padding:32px 24px 40px}
+.age-card h3{margin:4px 0 16px;text-transform:none}
+.age-card strong{display:block;margin:16px 0;font:700 18px/1.2 ClearSans,sans-serif;letter-spacing:.02em}
+.age-card__junior{color:#e30088}.age-card__middle{color:#03a0e3}.age-card__senior{color:#f2a904}
+.illustrated-section--tablet{margin-top:0}
+.illustrated-section--tablet .illustrated-section__copy{padding-top:128px}
+.skill-section--online{padding-bottom:0}
+.online-note{padding:48px 0 64px}
+
+.question-section{overflow:hidden;background:var(--pale)}
+.question-section__inner{height:566px;display:grid;grid-template-columns:1fr 1fr}
+.question-section__image{position:relative}
+.question-section__image img{position:absolute;right:40px;bottom:0;height:540px;width:auto}
+.question-section__copy{display:flex;flex-direction:column;justify-content:center;padding-left:15px}
+.question-section__copy h2{margin-bottom:8px;color:var(--ink)}
+.question-section__copy .enroll-button{margin-top:36px}
+
+.entrepreneur-section{padding:48px 0;background:#fff}
+.entrepreneur-section__inner{display:flex;align-items:center;justify-content:space-between;gap:48px;padding:38px 48px;border-radius:20px;background:#f0faff}
+.entrepreneur-section__inner>div{max-width:670px}
+.entrepreneur-section h2{margin:0 0 8px;font-size:24px}
+.entrepreneur-section p{margin:0;line-height:1.5}
+.enroll-button--secondary{width:360px;background:var(--pink-light);color:#ff2796}
+.enroll-button--secondary:hover{background:#fdcee6}
+
+.program-footer{padding:64px 0 76px;background:#fff}
+.program-footer__grid{display:grid;grid-template-columns:2fr 1fr;gap:40px}
+.program-footer__links{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+.program-footer h2{margin:0 0 16px;font:700 18px/1.2 ClearSans,sans-serif;text-transform:none}
+.program-footer__links a{display:block;margin-top:16px;font-size:18px}
+.program-footer__links a:hover,.program-footer__links a.is-current{color:var(--cyan)}
+.program-footer__logo{width:179px;height:28px}
+.program-footer__legal p{margin:16px 0;font-size:18px;line-height:25px}
+.program-footer__legal>a{display:block;margin-top:8px;text-decoration:underline}
+.program-footer__legal h2{margin-top:32px}
+.store-links{display:flex;flex-wrap:wrap;gap:8px}
+.store-links img{width:104px;border-radius:5px}
+.program-footer__legal .trustpilot-link{display:inline-block;text-decoration:none}
+.trustpilot-link img{width:104px}
+
+.enrollment-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;opacity:0;transition:opacity .18s ease}
+.enrollment-modal.is-open{opacity:1}
+.enrollment-modal__backdrop{position:absolute;inset:0;background:rgba(54,43,89,.58);backdrop-filter:blur(4px)}
+.enrollment-dialog{position:relative;z-index:1;width:min(520px,100%);max-height:calc(100vh - 48px);overflow:auto;padding:40px;border-radius:20px;background:#fff;box-shadow:0 25px 70px rgba(29,19,57,.3)}
+.enrollment-dialog__close{position:absolute;top:16px;right:16px;width:36px;height:36px;padding:0;border:0;background:transparent;cursor:pointer}
+.enrollment-dialog h2{margin:0 45px 6px 0;font-size:30px;text-transform:none}
+.enrollment-dialog>p{margin:0 0 24px}
+.enrollment-dialog form{display:grid;gap:14px}
+.enrollment-dialog label span{display:block;margin-bottom:5px;color:var(--ink);font-size:14px;font-weight:700}
+.enrollment-dialog input,.enrollment-dialog select{width:100%;height:52px;padding:0 14px;border:1px solid #b1b1b1;border-radius:10px;background:#fff;color:#4f5962}
+.enrollment-dialog select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#666 50%),linear-gradient(135deg,#666 50%,transparent 50%);background-position:calc(100% - 20px) 22px,calc(100% - 15px) 22px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.enrollment-dialog form .enroll-button{width:100%;margin-top:8px}
+.enrollment-dialog small{font-size:12px;line-height:1.4}
+.enrollment-success{text-align:center}
+.enrollment-success h3{margin:28px 0 10px;color:var(--pink);font-size:30px}
+.enrollment-success .enroll-button{margin-top:24px}
+
+@media (max-width:1199px){
+    .program-container{width:min(970px,calc(100% - 30px))}
+    .mental-hero h1{max-width:440px;font-size:40px;line-height:1.35}
+    .mental-hero p{max-width:440px}
+    .program-nav{gap:26px}
+}
+
+@media (max-width:991px){
+    .program-container{width:min(750px,calc(100% - 30px))}
+    .program-nav{gap:20px}.program-nav>a,.program-nav__dropdown>button{font-size:16px}
+    .mental-hero h1,.mental-hero p{max-width:330px}.mental-hero h1{font-size:32px;line-height:1.35}.mental-hero p{font-size:20px}
+    .skill-card{height:auto;min-height:390px}
+    .question-section__image img{right:0}
+    .entrepreneur-section__inner{padding:32px}
+}
+
+@media (max-width:767px){
+    body{font-size:14px;overflow-x:hidden}
+    .program-container{width:min(100% - 20px,480px)}
+    .program-header__top{display:block;height:41px}
+    .program-header__top-inner{display:none}
+    .program-header__desktop-nav{display:none}
+    .program-header__mobile-nav{position:relative;display:flex;align-items:center;height:60px;padding:0 10px;background:#fff}
+    .program-header__mobile-nav>a:first-child img{width:35px;height:35px}
+    .program-header__mobile-nav>.program-button{width:94px;height:38px;margin-left:auto;border-radius:5px;font-size:14px}
+    .mobile-menu-button{width:42px;height:42px;margin-left:18px;padding:8px;border:0;background:transparent;cursor:pointer}
+    .mobile-menu-button img{width:26px;margin:auto}
+    .mobile-menu{position:absolute;top:55px;right:10px;display:none;width:320px;padding:16px 20px;border:1px solid #ccc;border-radius:10px;background:#fff;box-shadow:5px 10px 25px rgba(104,104,104,.1)}
+    .mobile-menu.is-open{display:grid}
+    .mobile-menu>a,.mobile-menu__group>button,.mobile-menu__programs a{padding:8px 0;border:0;background:none;color:var(--ink);font-weight:700;text-align:left}
+    .mobile-menu__group>button{display:flex;align-items:center;width:100%;color:var(--cyan);cursor:pointer}
+    .mobile-menu__group>button span{width:14px;height:8px;margin-left:8px;background:url(../images/arrow-down-blue.webp) center/14px 8px no-repeat;transition:transform .2s}
+    .mobile-menu__group>button[aria-expanded="false"] span{transform:rotate(180deg)}
+    .mobile-menu__programs{display:grid;margin-bottom:12px;padding-left:12px}
+    .mobile-menu__programs.is-collapsed{display:none}
+    .mobile-menu__programs a{font-size:14px;font-weight:400}
+    .mobile-menu__programs a.is-current{color:var(--cyan)}
+
+    .mental-page h2{margin-bottom:16px;font-size:22px;line-height:1.4}
+    .mental-page h3{font-size:17px;line-height:1.4}
+    .mental-page p{font-size:14px}
+    .mental-hero{min-height:0;padding-bottom:250px;background-position:bottom right,left center;background-size:560px auto,100% 100%}
+    .mental-hero__content{padding-top:36px}
+    .mental-hero h1{max-width:none;font-size:32px;line-height:1.35}
+    .mental-hero p{max-width:none;margin-top:6px;font-size:18px;line-height:1.2}
+    .mental-hero .enroll-button{width:100%;margin-top:24px}
+    .enroll-button{min-height:54px;font-size:17px;font-weight:600}
+
+    .illustrated-section{min-height:0;padding:48px 10px 24px}
+    .illustrated-section__copy{width:100%;padding:0}
+    .illustrated-section__image{display:none}
+    .gradient-band{margin-top:24px}
+    .overflow-feature{min-height:0;flex-direction:column;align-items:center;padding-top:0}
+    .overflow-feature__copy{order:1;width:100%;padding:48px 10px 24px}
+    .overflow-feature__image{order:2;width:50%;min-height:220px;padding:0}
+    .overflow-feature__image img{position:static;width:100%;max-width:100%}
+
+    .skill-section{padding:48px 10px 24px}
+    .skill-grid{grid-template-columns:1fr;gap:16px}
+    .skill-card{min-height:0;height:auto;padding:24px;border-radius:20px}
+    .skill-card img{height:auto;max-width:80px}
+    .skill-card h3{margin:12px 0 4px}
+    .skill-card p{margin-top:4px}
+    .section-cta{min-height:0;padding-top:8px}
+    .section-cta .enroll-button{width:100%}
+
+    .gradient-band--classes{margin-top:24px}
+    .age-section{padding:48px 10px 24px}
+    .age-section>h2{margin-bottom:24px}
+    .age-section>h2 br{display:none}
+    .age-scroller{overflow-x:auto;padding:10px;margin:-10px;scroll-snap-type:x proximity}
+    .age-grid{display:flex;width:max-content;gap:10px}
+    .age-card{width:265px;flex:none;scroll-snap-align:start}
+    .age-card>div{padding:20px 16px}
+    .age-card h3{margin:4px 0 8px}
+    .age-card strong{font-size:16px}
+    .illustrated-section--tablet{padding-top:48px}
+    .illustrated-section--tablet h2 br{display:none}
+    .skill-section--online{padding-top:48px}
+    .online-note{padding:24px 0}
+
+    .question-section__inner{height:auto;display:block;padding:0 10px 48px}
+    .question-section__image{display:none}
+    .question-section__copy{padding:48px 0 0}
+    .question-section__copy .enroll-button{width:100%;margin-top:24px}
+    .entrepreneur-section{padding:24px 0}
+    .entrepreneur-section__inner{display:block;padding:24px;border-radius:16px}
+    .entrepreneur-section h2{font-size:20px}
+    .entrepreneur-section p{font-size:14px}
+    .entrepreneur-section .enroll-button{width:100%;margin-top:24px}
+    .program-footer{padding:48px 0}
+    .program-footer__grid{grid-template-columns:1fr}
+    .program-footer__links{display:none}
+    .program-footer__legal{font-size:14px}
+    .program-footer__legal p{font-size:14px;line-height:1.5}
+    .enrollment-modal{padding:10px}
+    .enrollment-dialog{max-height:calc(100vh - 20px);padding:28px 20px}
+    .enrollment-dialog h2{font-size:24px}
+}
+
+@media (max-width:420px){
+    .mental-hero{background-size:560px auto,100% 100%}
+    .mental-hero h1{font-size:30px}
+    .mental-hero p{font-size:17px}
+    .mobile-menu{right:5px;width:310px}
+}

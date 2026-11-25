@@ -23,4 +23,4 @@ button{font:inherit}
 .route-footer{padding:24px 0;background:#211e3c;color:rgba(255,255,255,.7);font-size:13px}
 .route-footer .shell{display:flex;justify-content:space-between;gap:18px}
 .route-footer a{color:#fff;font-weight:700}
-@media(max-width:820px){.route-main{padding:36px 0 60px}.route-card{min-height:0;padding:30px 22px;border-radius:24px}.route-card h1{font-size:clamp(40px,12vw,58px)}.route-lede{font-size:17px}.route-grid{grid-template-columns:1fr;margin-top:34px}.route-note{min-height:0}.route-footer .shell{display:grid}}
+@media(max-width:820px){.route-main{padding:36px 0 60px}.route-card{min-height:0;padding:30px 22px;border-radius:24px}.route-content{width:100%;min-width:0}.route-card h1{font-size:clamp(40px,12vw,58px)}.route-lede{font-size:17px;overflow-wrap:anywhere}.route-grid{grid-template-columns:minmax(0,1fr);margin-top:34px}.route-note{min-width:0;min-height:0}.route-note span{overflow-wrap:anywhere}.route-button{max-width:100%;padding-inline:16px}.route-footer .shell{display:grid}}
