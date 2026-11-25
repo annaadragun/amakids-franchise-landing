@@ -3,11 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="AMAkids Abacus and Mental Arithmetic course for children aged 5 to 16.">
-    <title>Mental Arithmetic for Children at AMAkids</title>
+    <meta name="description" content="Explore the AMAkids Mental Arithmetic program for ages 5–16, from physical abacus practice to mental calculation.">
+    <title>Mental Arithmetic · AMAkids</title>
+    <link rel="icon" href="../../modules/mental-arithmetic/images/mobile-logo.webp">
+    <link rel="stylesheet" href="../../shared/styles/site-shell.css">
     <link rel="stylesheet" href="../../modules/mental-arithmetic/styles/mental-arithmetic.css">
+    <link rel="stylesheet" href="../../modules/mental-arithmetic/styles/course.css">
+    <script src="../../modules/mental-arithmetic/scripts/mental-arithmetic.js" defer></script>
 </head>
-<body>
+<body class="course-page" id="top">
     <header class="program-header" data-program-header>
         <div class="program-header__top">
             <div class="program-container program-header__top-inner">
@@ -87,212 +91,110 @@
             </nav>
         </div>
     </header>
-
-    <main class="mental-page">
-        <section class="mental-hero">
-            <div class="program-container mental-hero__content">
-                <h1>Abacus and Mental<br>Arithmetic for Kids</h1>
-                <p>Our course is based on oral arithmetic<br>calculations, that allows to develop<br>maximum speed of perception<br>and information processing</p>
-                <button class="enroll-button" type="button" data-open-enrollment>Start with a free trial lesson</button>
-            </div>
-        </section>
-
-        <section class="program-container illustrated-section illustrated-section--abacus">
-            <div class="illustrated-section__copy">
-                <h2>Mental Arithmetic course</h2>
-                <p>AMAKids' mental arithmetic course is an educational program for children based on mental calculations. It increases the speed of perception and information processing by developing communication between the two brain hemispheres</p>
-            </div>
-            <div class="illustrated-section__image">
-                <img src="../../modules/mental-arithmetic/images/abacus.webp" alt="Mental Arithmetic course" loading="lazy">
-            </div>
-        </section>
-
-        <section class="gradient-band">
-            <div class="program-container overflow-feature">
-                <div class="overflow-feature__image">
-                    <img src="../../modules/mental-arithmetic/images/boy.webp" alt="Goal of the course" loading="lazy">
-                </div>
-                <div class="overflow-feature__copy">
-                    <h2>Goal of the course</h2>
-                    <p>Studying in small groups under the guidance of an experienced teacher, students will gradually pass all the stages of mastering rapid oral calculation, as well as increase their intellectual potential. All this will help them to succeed not only in their studies, but also in many other activities</p>
+    <main>
+        <section class="ma-hero" aria-labelledby="course-title">
+            <div class="shell">
+                <div class="ma-hero-grid">
+                    <div>
+                        <h1 id="course-title">Mental Arithmetic</h1>
+                        <p class="ma-hero-line">From the abacus to mental calculation.</p>
+                        <p class="ma-lede">Children learn to calculate with a physical abacus, then use a mental image of it to solve problems. AMAkids brings together a structured curriculum, teacher-led classes and digital practice.</p>
+                        <div class="ma-actions">
+                            <a class="ma-button ma-button-primary" href="#curriculum">Explore the curriculum</a>
+                            <a class="ma-button ma-button-outline" href="#next-steps">Discuss the program</a>
+                        </div>
+                    </div>
+                    <figure class="ma-hero-figure">
+                        <img src="../../modules/mental-arithmetic/images/course-classroom.webp" width="900" height="1200" fetchpriority="high" alt="Children working at desks during a mental arithmetic class">
+                        <figcaption><strong>Ages 5–16</strong><span>Three age groups</span></figcaption>
+                    </figure>
                 </div>
             </div>
         </section>
 
-        <section class="program-container skill-section">
-            <h2>Our courses</h2>
-            <div class="skill-grid">
-                <article class="skill-card">
-                    <img src="../../modules/mental-arithmetic/images/soft-brain.webp" alt="" loading="lazy">
-                    <h3>Imagination &amp; Memory</h3>
-                    <p>During our mental arithmetic course children challenge their imagination and test their memory by sharpening the skill of mental calculation</p>
+        <section class="ma-section shell" id="curriculum" aria-labelledby="curriculum-title">
+            <h2 id="curriculum-title">Two learning tracks, three age groups</h2>
+            <p class="ma-lede">Both tracks start with addition and subtraction and continue with multiplication and division. The youngest learners have shorter lesson blocks and age-adapted materials.</p>
+            <div class="ma-tracks">
+                <article class="ma-track ma-track-junior">
+                    <h3>Junior <span>Ages 5–10</span></h3>
+                    <dl>
+                        <div><dt>Ages 5–6</dt><dd>2 × 35 min</dd></div>
+                        <div><dt>Ages 7–10</dt><dd>2 × 45 min</dd></div>
+                    </dl>
                 </article>
-                <article class="skill-card">
-                    <img src="../../modules/mental-arithmetic/images/soft-bulb.webp" alt="" loading="lazy">
-                    <h3>Creativity</h3>
-                    <p>Our course encourages children to explore and develop three main components of creative thinking: curiosity, flexibility and independence</p>
-                </article>
-                <article class="skill-card">
-                    <img src="../../modules/mental-arithmetic/images/soft-orbit.webp" alt="" loading="lazy">
-                    <h3>Analytical &amp; Creative Thinking</h3>
-                    <p>Stimulating both the left and the right side of the brain, mental arithmetic facilitates general understanding, helps children to draw their own conclusions about complex situations and find creative, rather than stereotypical solutions</p>
-                </article>
-                <article class="skill-card">
-                    <img src="../../modules/mental-arithmetic/images/soft-grid.webp" alt="" loading="lazy">
-                    <h3>Concentration</h3>
-                    <p>During the class, children are taught to visualize numbers by imagining the movement of beads the abacus. While training to stay focused and keep their attention on the subject, they develop mental strength and perseverance</p>
-                </article>
-                <article class="skill-card">
-                    <img src="../../modules/mental-arithmetic/images/soft-flag.webp" alt="" loading="lazy">
-                    <h3>Confidence</h3>
-                    <p>After completing the course children perform at school much better, and that positively affects their self-esteem, communication and initiative</p>
-                </article>
-                <article class="skill-card">
-                    <img src="../../modules/mental-arithmetic/images/soft-rocket.webp" alt="" loading="lazy">
-                    <h3>Independence</h3>
-                    <p>Participation in mental arithmetic olympics and championships motivates children to work independently and strive for success</p>
+                <article class="ma-track ma-track-senior">
+                    <h3>Senior <span>Ages 11–16</span></h3>
+                    <dl><div><dt>Ages 11–16</dt><dd>2 × 45 min</dd></div></dl>
                 </article>
             </div>
-            <div class="section-cta">
-                <button class="enroll-button" type="button" data-open-enrollment>Start with a free trial lesson</button>
-            </div>
+            <p class="ma-caption">Typical schedule: one weekly meeting with two lesson blocks and a short break. Check local availability and scheduling with your provider.</p>
         </section>
 
-        <section class="gradient-band gradient-band--classes">
-            <div class="program-container overflow-feature">
-                <div class="overflow-feature__image">
-                    <img src="../../modules/mental-arithmetic/images/girl.webp" alt="Classes" loading="lazy">
+        <section class="ma-section ma-practice" id="learning" aria-labelledby="learning-title">
+            <div class="shell ma-feature">
+                <div>
+                    <h2 id="learning-title">From classroom practice to independent practice</h2>
+                    <ol class="ma-steps">
+                        <li><h3>Learn with a teacher</h3><p>Students work with the physical abacus and practise visualizing the beads as they develop mental calculation skills.</p></li>
+                        <li><h3>Practise between lessons</h3><p>Digital exercises and games help students revisit what they worked on in class.</p></li>
+                        <li><h3>Review progress</h3><p>Teachers can review homework activity and results to see where a learner needs more practice.</p></li>
+                    </ol>
                 </div>
-                <div class="overflow-feature__copy">
-                    <h2>Classes</h2>
-                    <p>The mental arithmetic course has two parts: "Addition and Subtraction" and "Multiplication and Division". Classes are taught by qualified AMAKids specialists who are professionally trained and certified to teach children. Trainers use our patented online platform, AR technology, and textbooks</p>
+                <figure class="ma-practice-photo"><img src="../../modules/mental-arithmetic/images/course-activities.webp" width="900" height="1200" loading="lazy" alt="Students using abacuses and learning materials around a classroom table"></figure>
+            </div>
+        </section>
+
+        <section class="ma-section shell" id="benefits" aria-labelledby="benefits-title">
+            <h2 id="benefits-title">What the program offers</h2>
+            <div class="ma-audiences">
+                <article class="ma-audience ma-audience-partner">
+                    <h3>For schools, centers and partners</h3>
+                    <p>Add a structured enrichment program to an existing school or center, or build it into a new AMAkids business.</p>
+                    <ul><li>Age-based curriculum and teaching materials</li><li>Teacher training and access to the learning platform</li><li>Technical and operational support within the agreed partnership</li></ul>
+                    <a class="ma-text-link" href="../../#models">Compare partnership models</a>
+                </article>
+                <article class="ma-audience">
+                    <h3>For teachers</h3>
+                    <p>Prepare to teach the AMAkids method using course-specific training and ready-to-use resources.</p>
+                    <ul><li>Lesson plans, presentations and learning activities</li><li>Textbooks and practice materials</li><li>Tools to assign practice and review results</li></ul>
+                </article>
+                <article class="ma-audience">
+                    <h3>For students and families</h3>
+                    <p>See what students are working on as they move from using the abacus to solving calculations mentally.</p>
+                    <ul><li>Teacher-led lessons in age groups</li><li>Games and practice between lessons</li><li>Progress that teachers can share with families</li></ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="ma-section shell ma-faq" id="faq" aria-labelledby="course-faq-title">
+            <h2 id="course-faq-title">Frequently asked questions</h2>
+            <div>
+                <details><summary>How does the course fit alongside school math?</summary><p>It is an enrichment program focused on abacus-based and mental calculation. Students continue to use the calculation methods taught in their regular math classes.</p></details>
+                <details><summary>Can our teachers deliver the program?</summary><p>Teachers can deliver the course after completing the relevant AMAkids training. Ask about the available training languages and materials for your market.</p></details>
+                <details><summary>Can students learn online?</summary><p>AMAkids offers in-person and online formats. Availability depends on your location and local provider.</p></details>
+                <details><summary>How can parents follow progress?</summary><p>Teachers can review practice activity and exercise results on the platform and share what a child is working on and what needs more practice.</p></details>
+            </div>
+        </section>
+
+        <section class="ma-section ma-contact" id="next-steps" aria-labelledby="next-steps-title">
+            <div class="shell ma-contact-inner">
+                <div>
+                    <h2 id="next-steps-title">Interested in the program?</h2>
+                    <p>Talk to AMAkids about delivering the course, or find a local provider for your child.</p>
                 </div>
-            </div>
-        </section>
-
-        <section class="program-container age-section">
-            <h2>AMAKIDS PROVIDES CLASSES ONCE<br>A WEEK FOR THREE AGE GROUPS:</h2>
-            <div class="age-scroller">
-                <div class="age-grid">
-                    <article class="age-card">
-                        <img src="../../modules/mental-arithmetic/images/photo-1.webp" alt="Junior" loading="lazy">
-                        <div><h3>Junior</h3><strong class="age-card__junior">5-6 years old</strong><p>We recommend<br>2 x 35 minute lessons</p></div>
-                    </article>
-                    <article class="age-card">
-                        <img src="../../modules/mental-arithmetic/images/photo-2.webp" alt="Middle" loading="lazy">
-                        <div><h3>Middle</h3><strong class="age-card__middle">7-10 years old</strong><p>We recommend<br>2 x 35 minute lessons</p></div>
-                    </article>
-                    <article class="age-card">
-                        <img src="../../modules/mental-arithmetic/images/photo-3.webp" alt="Senior" loading="lazy">
-                        <div><h3>Senior</h3><strong class="age-card__senior">11-15 years old</strong><p>We recommend<br>2 x 45 minute lessons</p></div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="program-container illustrated-section illustrated-section--tablet">
-            <div class="illustrated-section__copy">
-                <h2>Students can take both group<br>and/or individual classes</h2>
-                <p>Junior group classes may consist of a maximum of six kids, while the middle and senior groups should have no more than ten students. All classes are conducted in a playful manner in order to organically combine children's emotional and rational cognitive activities</p>
-            </div>
-            <div class="illustrated-section__image">
-                <img src="../../modules/mental-arithmetic/images/tablet.webp" alt="Group and individual classes" loading="lazy">
-            </div>
-        </section>
-
-        <section class="program-container skill-section skill-section--online">
-            <h2>Mental Arithmetic Online</h2>
-            <div class="skill-grid">
-                <article class="skill-card"><img src="../../modules/mental-arithmetic/images/soft-orbit.webp" alt="" loading="lazy"><h3>Online</h3><p>All lessons are held on our online platform</p></article>
-                <article class="skill-card"><img src="../../modules/mental-arithmetic/images/soft-bulb.webp" alt="" loading="lazy"><h3>Video link</h3><p>The trainer communicates with your child via video link on our platform</p></article>
-                <article class="skill-card"><img src="../../modules/mental-arithmetic/images/soft-flag.webp" alt="" loading="lazy"><h3>Class time</h3><p>Lessons last from 35 to 50 minutes</p></article>
-                <article class="skill-card"><img src="../../modules/mental-arithmetic/images/soft-grid.webp" alt="" loading="lazy"><h3>Lessons</h3><p>Lessons are carried out in a game format</p></article>
-                <article class="skill-card"><img src="../../modules/mental-arithmetic/images/soft-rocket.webp" alt="" loading="lazy"><h3>Homework</h3><p>Teacher assigns task to consolidate studying materials</p></article>
-            </div>
-            <p class="online-note">Our course ideal for kids from 5 to 16 years old. The course is also available online, with a teacher on the AMAKids platform. Click “Enroll” and choose “Study online” in the form.</p>
-        </section>
-
-        <section class="question-section">
-            <div class="program-container question-section__inner">
-                <div class="question-section__image"><img src="../../modules/mental-arithmetic/images/form-girl.webp" alt="Child" loading="lazy"></div>
-                <div class="question-section__copy">
-                    <h2>Do you still have questions?</h2>
-                    <p>Leave your data &amp; we will contact you shortly</p>
-                    <button class="enroll-button" type="button" data-open-enrollment>Enroll</button>
+                <div class="ma-actions">
+                    <a class="ma-button ma-button-white" href="mailto:info@amakids.com?subject=AMAkids%20Mental%20Arithmetic%20program%20enquiry">Contact the AMAkids team</a>
+                    <a class="ma-button ma-button-on-dark" href="https://amakids.com/contacts/">Find classes</a>
                 </div>
             </div>
         </section>
     </main>
-
-    <aside class="entrepreneur-section">
-        <div class="program-container entrepreneur-section__inner">
-            <div>
-                <h2>For entrepreneurs</h2>
-                <p>Want to open an education center for children? AMAKids franchise partners get a ready-made curriculum and teaching materials, an online platform, a business plan and personal support.</p>
-            </div>
-            <a class="enroll-button enroll-button--secondary" href="../../">Learn about the AMAKids franchise</a>
-        </div>
-    </aside>
-
-    <footer class="program-footer">
-        <div class="program-container program-footer__grid">
-            <nav class="program-footer__links" aria-label="Footer navigation">
-                <div>
-                    <h2>Programs</h2>
-                    <a class="is-current" href="./">Abacus &amp; Mental Arithmetic</a>
-                    <a href="../#english">English Classes</a>
-                    <a href="../#memory-training">Memory Training</a>
-                </div>
-                <div>
-                    <h2>Useful</h2>
-                    <a href="https://amakids.com/contacts/">Our centers</a>
-                    <a href="https://amakids.com/blog/">Blog</a>
-                </div>
-            </nav>
-            <div class="program-footer__legal">
-                <img class="program-footer__logo" src="../../modules/mental-arithmetic/images/footer-logo.webp" alt="AMAkids">
-                <p>© 2026 All rights reserved.<br>VF Private Education LTD., HE 385788, Address Marathonos 3, MALI HOUSE, 8011, Paphos, Cyprus</p>
-                <a href="https://amakids.com/downloads/Privacy_policy.pdf" target="_blank" rel="noopener">Privacy policy</a>
-                <a href="https://amakids.com/downloads/User_Agreement_for_the_VF_Brain_Evolution_Ltd_website.pdf" target="_blank" rel="noopener">User agreement</a>
-                <a href="https://amakids.com/downloads/Public_offer_agreement_for_granting_rights_to_use_the_Online_Platform.pdf" target="_blank" rel="noopener">Public offer agreement platform</a>
-                <a href="https://amakids.com/downloads/Public_offer_agreement_VF_Brain.pdf" target="_blank" rel="noopener">Public offer VF Private</a>
-                <h2>Our app</h2>
-                <div class="store-links">
-                    <a href="https://apps.apple.com/us/app/intellectual-development/id1446282425" target="_blank" rel="noopener"><img src="../../modules/mental-arithmetic/images/appstore.webp" alt="App Store"></a>
-                    <a href="https://play.google.com/store/apps/details?id=com.smartum.amakids.bba" target="_blank" rel="noopener"><img src="../../modules/mental-arithmetic/images/playstore.webp" alt="Google Play"></a>
-                    <a href="https://platform-amakids.eu/store/apps/AmakidsSmartum/AMAkids%20SmartUm.windows.zip" target="_blank" rel="noopener"><img src="../../modules/mental-arithmetic/images/windowsapp.webp" alt="Windows App"></a>
-                </div>
-                <h2>Reviews</h2>
-                <a class="trustpilot-link" href="https://www.trustpilot.com/review/amakids.com" target="_blank" rel="noopener"><img src="../../modules/mental-arithmetic/images/trustpilot.webp" alt="Trustpilot"></a>
-            </div>
+    <footer class="ma-footer">
+        <div class="shell">
+            <a href="../../" aria-label="AMAkids home"><img src="../../shared/assets/brand/logo-footer.webp" width="179" height="28" alt="AMAkids"></a>
+            <nav aria-label="Footer navigation"><a href="../">All programs</a><a href="../../#models">Partnership models</a><a href="#top">Back to top</a></nav>
         </div>
     </footer>
-
-    <div class="enrollment-modal" data-enrollment-modal hidden>
-        <div class="enrollment-modal__backdrop" data-close-enrollment></div>
-        <section class="enrollment-dialog" role="dialog" aria-modal="true" aria-labelledby="enrollment-title">
-            <button class="enrollment-dialog__close" type="button" aria-label="Close" data-close-enrollment>
-                <img src="../../modules/mental-arithmetic/images/close.webp" alt="">
-            </button>
-            <h2 id="enrollment-title">Leave your request</h2>
-            <p>Submit your data &amp; we will contact you shortly</p>
-            <form data-enrollment-form>
-                <label><span>Name*</span><input type="text" name="name" autocomplete="name" required></label>
-                <label><span>Phone*</span><input type="tel" name="phone" autocomplete="tel" required></label>
-                <label><span>E-mail*</span><input type="email" name="email" autocomplete="email" required></label>
-                <label><span>Study format</span><select name="format"><option>At an AMAkids center</option><option>Study online</option></select></label>
-                <label><span>Country*</span><input type="text" name="country" autocomplete="country-name" required></label>
-                <button class="enroll-button" type="submit">Send your request</button>
-                <small>By submitting this form you agree that the company can process your personal data and send you news, information and advertising/promotional materials.</small>
-            </form>
-            <div class="enrollment-success" data-enrollment-success hidden>
-                <h3>Thank you!</h3>
-                <p>Your request is ready. Connect an approved form or CRM endpoint before production launch.</p>
-                <button class="enroll-button" type="button" data-close-enrollment>Close</button>
-            </div>
-        </section>
-    </div>
-
-    <script src="../../modules/mental-arithmetic/scripts/mental-arithmetic.js"></script>
 </body>
 </html>
