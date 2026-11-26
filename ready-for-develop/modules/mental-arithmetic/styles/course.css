@@ -194,16 +194,7 @@
     background: #fff;
     box-shadow: var(--ma-shadow);
 }
-.ma-method-visual figcaption {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: .4rem 1rem;
-    padding: 13px 17px;
-    font-size: .9rem;
-    font-weight: 700;
-}
-.ma-method-visual figcaption span { color: var(--ma-text); font-weight: 400; }
+.ma-method-still { display: none; }
 .ma-skills { margin-top: clamp(44px, 6.2vw, 76px); }
 .ma-skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .ma-skill {
@@ -218,7 +209,7 @@
 .ma-skill p { margin-top: 7px; color: var(--ma-text); }
 
 .ma-curriculum { background: #f7f8fc; }
-.ma-tracks { grid-template-columns: 2fr 1fr; gap: 15px; }
+.ma-tracks { grid-template-columns: 1fr 2fr; gap: 15px; }
 .ma-track {
     min-width: 0;
     overflow: hidden;
@@ -230,7 +221,7 @@
 .ma-track-senior { border-color: #e0e5f4; }
 .ma-track-senior > h3 { background: #eaeffd; color: #394f95; }
 .ma-track dl { display: grid; }
-.ma-track-junior dl { grid-template-columns: 1fr 1fr; }
+.ma-track-senior dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ma-track dl > div { padding: 17px 20px 19px; }
 .ma-track dl > div + div { border-left: 1px solid var(--ma-border); }
 .ma-track dt { color: var(--ma-purple); font-weight: 700; }
@@ -311,7 +302,7 @@
     background: #201834;
     object-fit: contain;
 }
-.ma-method-visual video { aspect-ratio: 960 / 502; }
+.ma-method-visual video, .ma-method-still { width: 100%; height: auto; aspect-ratio: 960 / 502; }
 .ma-player video:focus-visible { outline-offset: -4px; }
 .ma-player-cover {
     position: absolute;
@@ -383,9 +374,20 @@
     object-fit: cover;
     object-position: center 58%;
 }
-.ma-classroom-photos img:first-child { object-position: center 4%; }
-.ma-classroom-photos img:nth-child(2) { filter: brightness(1.095); }
+.ma-classroom:not(.ma-events) img:first-child { object-position: center 4%; }
+.ma-classroom:not(.ma-events) img:nth-child(2) { filter: brightness(1.095); }
 .ma-classroom figcaption { margin-top: 10px; color: var(--ma-text); font-size: .9rem; }
+.ma-events { margin-top: 24px; }
+.ma-events .ma-classroom-photos img { aspect-ratio: 2 / 1; object-position: center 36%; }
+.ma-event-group { overflow: hidden; aspect-ratio: 2 / 1; border-radius: 16px; }
+.ma-events .ma-event-group img {
+    width: 110%;
+    max-width: none;
+    height: 100%;
+    margin-inline: -5%;
+    border-radius: 0;
+    object-position: center 25%;
+}
 
 .ma-benefit-section { background: linear-gradient(127deg, #f8f4fe, #f5f8ff); }
 .ma-audiences { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -468,6 +470,7 @@
 .ma-faq details[open] summary::after { background: var(--ma-purple); color: #fff; content: "−"; }
 .ma-faq summary:hover { color: var(--ma-purple); }
 .ma-faq details p { max-width: 67ch; padding: 0 12px 16px 0; color: var(--ma-text); }
+.ma-faq details p a { color: var(--ma-purple); text-decoration: underline; text-underline-offset: 3px; }
 
 .ma-contact { background: linear-gradient(112deg, #602b88, #344797); color: #fff; }
 .ma-contact h2 { max-width: 27ch; }
@@ -503,6 +506,7 @@
     .ma-tracks, .ma-media-grid, .ma-audiences { grid-template-columns: 1fr; }
     .ma-material-features { grid-template-columns: 1fr; gap: 11px; }
     .ma-classroom-photos img { aspect-ratio: 4 / 3; }
+    .ma-events .ma-classroom-photos { grid-template-columns: 1fr; }
 }
 @media (max-width: 460px) {
     .ma-skill-grid, .ma-stages, .ma-extension { grid-template-columns: 1fr; }
@@ -515,4 +519,6 @@
     html:has(.course-page) { scroll-behavior: auto; }
     .course-page .ma-button, .ma-play-icon { transition: none; }
     .course-page .ma-button:hover, .ma-player-cover:hover .ma-play-icon { transform: none; }
+    .ma-method-visual video { display: none; }
+    .ma-method-still { display: block; }
 }

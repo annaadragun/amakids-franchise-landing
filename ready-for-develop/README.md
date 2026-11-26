@@ -56,7 +56,7 @@ The Mental Arithmetic page links to the AMAkids platform demo and the partnershi
 
 ## Mental Arithmetic program page
 
-The course page uses its original program header, with dedicated assets and styles in `modules/mental-arithmetic/`. It covers the soroban method, skills, Junior and Senior tracks, age groups, the roadmap, what the program offers and frequently asked questions. The hero uses an illustrative classroom image. Two approved photos of partner classrooms appear below the learning materials. The materials section includes locally hosted Workbooks & Augmented Reality and Inside the AMAkids Platform videos. The method section has a short optional digital abacus animation. All three media previews play on click. See [CONTENT-PLAN.md](CONTENT-PLAN.md#страница-mental-arithmetic) for the editorial plan.
+The course page uses its original program header, with dedicated assets and styles in `modules/mental-arithmetic/`. It covers the soroban method, skills, Junior and Senior tracks, age groups, the roadmap, what the program offers and frequently asked questions. The hero uses an illustrative classroom image. Photos of partner classrooms and AMAkids events appear below the learning materials. The materials section includes locally hosted Workbooks & Augmented Reality and Inside the AMAkids Platform videos. The two materials videos play on click. The method section has a silent, looping digital abacus animation with a still image for visitors who prefer reduced motion. See [CONTENT-PLAN.md](CONTENT-PLAN.md#страница-mental-arithmetic) for the editorial plan.
 
 ## Deployment and versioning
 

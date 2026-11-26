@@ -54,6 +54,25 @@
         mobileTrigger.setAttribute('aria-expanded', 'false');
     });
 
+    var abacusAnimation = document.querySelector('[data-abacus-animation]');
+    if (abacusAnimation) {
+        var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        function syncAbacusMotion() {
+            abacusAnimation.autoplay = !motionPreference.matches;
+            if (motionPreference.matches) {
+                abacusAnimation.pause();
+            } else {
+                abacusAnimation.play().catch(function () {
+                    // The video poster remains available if autoplay is blocked.
+                });
+            }
+        }
+
+        if (motionPreference.matches) syncAbacusMotion();
+        motionPreference.addEventListener('change', syncAbacusMotion);
+    }
+
     var players = document.querySelectorAll('[data-course-player] video');
 
     players.forEach(function (video) {
