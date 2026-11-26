@@ -47,7 +47,38 @@
         });
     });
 
+    document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        closeDropdowns();
+        mobileMenu.classList.remove('is-open');
+        mobileTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    var players = document.querySelectorAll('[data-course-player] video');
+
+    players.forEach(function (video) {
+        var play = video.parentElement.querySelector('[data-course-play]');
+        video.controls = false;
+        play.hidden = false;
+
+        play.addEventListener('click', function () {
+            video.controls = true;
+            play.hidden = true;
+            video.focus({ preventScroll: true });
+            video.play().catch(function () {
+                // Native controls allow another playback attempt.
+            });
+        });
+
+        video.addEventListener('play', function () {
+            players.forEach(function (other) {
+                if (other !== video && !other.paused) other.pause();
+            });
+        });
+    });
+
     var modal = document.querySelector('[data-enrollment-modal]');
+    if (!modal) return;
     var dialog = modal.querySelector('.enrollment-dialog');
     var form = modal.querySelector('[data-enrollment-form]');
     var success = modal.querySelector('[data-enrollment-success]');
@@ -90,11 +121,6 @@
     });
 
     document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            closeDropdowns();
-            mobileMenu.classList.remove('is-open');
-            mobileTrigger.setAttribute('aria-expanded', 'false');
-            if (!modal.hidden) closeModal();
-        }
+        if (event.key === 'Escape' && !modal.hidden) closeModal();
     });
 }());

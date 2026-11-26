@@ -42,7 +42,7 @@ The header is rendered from `shared/scripts/site-shell.js`. Its route list is th
 - `/` — full franchise landing page.
 - `/partnership-models/` — future partnership-model detail page.
 - `/programs/` — program catalogue and parent route.
-- `/programs/mental-arithmetic/` — complete Abacus & Mental Arithmetic program page.
+- `/programs/mental-arithmetic/` — Mental Arithmetic program page for partners, teachers and families.
 - `/platform/` — future platform and CRM page.
 - `/partnership-proposal/` — future commercial proposal page.
 
@@ -52,11 +52,11 @@ The partnership-model, platform and partnership-proposal routes remain deliberat
 
 The homepage form is a prototype flow: it prepares an email draft and downloads the presentation after submission. It does not save leads to a server or CRM. Connect an approved endpoint before production lead capture.
 
-The Mental Arithmetic enrollment modal is also local-only: it validates the fields and shows a development confirmation, but does not transmit personal data. Connect the approved enrollment or CRM endpoint before production use.
+The Mental Arithmetic page links to the AMAkids platform demo and the partnership models on the homepage.
 
-## Program-page baseline
+## Mental Arithmetic program page
 
-The first program subroute recreates the English AMAkids Mental Arithmetic page captured from `https://amakids.com/program/mentalnaya-arifmetika/` on 25 November 2026. Its production images are stored locally in `modules/mental-arithmetic/images/`; the page does not depend on remote visual assets.
+The course page uses its original program header, with dedicated assets and styles in `modules/mental-arithmetic/`. It covers the soroban method, skills, Junior and Senior tracks, age groups, the roadmap, what the program offers and frequently asked questions. The hero uses an illustrative classroom image. Two approved photos of partner classrooms appear below the learning materials. The materials section includes locally hosted Workbooks & Augmented Reality and Inside the AMAkids Platform videos. The method section has a short optional digital abacus animation. All three media previews play on click. See [CONTENT-PLAN.md](CONTENT-PLAN.md#страница-mental-arithmetic) for the editorial plan.
 
 ## Deployment and versioning
 

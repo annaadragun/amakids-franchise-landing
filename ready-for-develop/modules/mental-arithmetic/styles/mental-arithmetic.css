@@ -27,9 +27,9 @@ img{display:block;max-width:100%}
 .language-menu{position:relative}
 .language-menu__button{display:flex;align-items:center;gap:8px;padding:12px 0;border:0;background:transparent;color:#fff;font:700 18px/1.2 ClearSans,sans-serif;cursor:pointer}
 .language-menu__button img{width:17px;height:17px}
-.language-menu__panel,.program-nav__panel{position:absolute;display:none;z-index:50;border:1px solid #ccc;border-radius:10px;background:#fff;box-shadow:5px 10px 25px rgba(104,104,104,.1)}
+.language-menu__panel,.program-nav__panel{position:absolute;top:calc(100% + var(--dropdown-gap));display:none;z-index:50;border:1px solid #ccc;border-radius:10px;background:#fff;box-shadow:5px 10px 25px rgba(104,104,104,.1)}
 .language-menu.is-open .language-menu__panel,.program-nav__dropdown.is-open .program-nav__panel{display:grid}
-.language-menu__panel{top:50px;right:-8px;width:220px;padding:20px 25px}
+.language-menu__panel{--dropdown-gap:4px;right:-8px;width:220px;padding:20px 25px}
 .language-menu__panel a{padding:6px 0;color:var(--ink);font-size:15px}
 .language-menu__panel a:hover{color:var(--cyan)}
 
@@ -38,13 +38,21 @@ img{display:block;max-width:100%}
 .program-nav>a,.program-nav__dropdown>button{border:0;background:transparent;color:var(--ink);font:700 18px/1.2 ClearSans,sans-serif;cursor:pointer}
 .program-nav>a:hover,.program-nav__dropdown>button:hover{color:var(--cyan)}
 .program-nav__dropdown{position:relative}
-.program-nav__panel{top:48px;left:0;width:360px;padding:30px}
+.program-nav__panel{--dropdown-gap:24px;left:0;width:360px;padding:30px}
 .program-nav__panel a{padding:10px 0;color:var(--ink);font-size:18px;font-weight:400}
 .program-nav__panel a.is-current{color:var(--cyan)}
 .program-header__mobile-nav{display:none}
 
 @media (min-width:768px){
     .language-menu:hover .language-menu__panel,.language-menu:focus-within .language-menu__panel,.program-nav__dropdown:hover .program-nav__panel,.program-nav__dropdown:focus-within .program-nav__panel{display:grid}
+
+    /* Keep the gap above each panel inside the hover area. */
+    .language-menu__panel::before,.program-nav__panel::before{
+        content:"";
+        position:absolute;
+        inset:auto 0 100%;
+        height:calc(var(--dropdown-gap) + 1px);
+    }
 }
 
 .mental-page h1,.mental-page h2,.mental-page h3,.entrepreneur-section h2,.program-footer h2,.enrollment-dialog h2,.enrollment-dialog h3{font-family:Exo,ClearSans,sans-serif;color:var(--ink)}
