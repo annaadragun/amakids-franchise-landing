@@ -39,10 +39,10 @@ jobs:
           {
             printf '## Published site\n\n'
             if [[ -f ready-for-develop/programs/mental-arithmetic/index.html ]]; then
-              printf -- '- [Mental Arithmetic · %s](%sprograms/mental-arithmetic/)\n' "$TAG_NAME" "$preview_url"
+              printf -- '- **Mental Arithmetic · %s** — <%sprograms/mental-arithmetic/>\n' "$TAG_NAME" "$preview_url"
             fi
-            printf -- '- [AMAkids site · %s](%s)\n' "$TAG_NAME" "$preview_url"
-            printf -- '- [Latest AMAkids site · main](%s)\n' "$site_url"
+            printf -- '- **AMAkids site · %s** — <%s>\n' "$TAG_NAME" "$preview_url"
+            printf -- '- **Latest AMAkids site · main** — <%s>\n' "$site_url"
             printf '\nGitHub also attaches ZIP and TAR archives containing the complete source at this tag.\n\n'
             git for-each-ref --format='%(contents:body)' "refs/tags/$TAG_NAME"
           } > "$RUNNER_TEMP/release-notes.md"
