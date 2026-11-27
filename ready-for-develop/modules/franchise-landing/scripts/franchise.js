@@ -15,6 +15,46 @@
     var successTitle = document.getElementById('success-title');
     var successDescription = document.getElementById('success-description');
     var presentationDownload = document.getElementById('presentation-download');
+    var trialDialog = document.getElementById('trial-dialog');
+    var trialForm = document.getElementById('trial-request-form');
+    var trialResult = document.getElementById('trial-result');
+
+    document.querySelectorAll('.video-play-button').forEach(function (button) {
+        var video = button.parentElement.querySelector('video');
+        if (!video) return;
+        button.addEventListener('click', function () {
+            var playAttempt = video.play();
+            if (playAttempt && typeof playAttempt.catch === 'function') {
+                playAttempt.catch(function () { button.hidden = false; });
+            }
+        });
+        video.addEventListener('play', function () { button.hidden = true; });
+        video.addEventListener('pause', function () { if (!video.ended) button.hidden = false; });
+        video.addEventListener('ended', function () { button.hidden = false; });
+    });
+
+    document.querySelectorAll('[data-open-form="offline"]').forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+            // The Yii site already renders this form; its own data-open-form handler owns it.
+            if (document.querySelector('[data-form="offline"]')) return;
+            trialResult.hidden = true;
+            trialForm.hidden = false;
+            trialForm.reset();
+            if (!trialDialog.open) trialDialog.showModal();
+        });
+    });
+
+    trialDialog.querySelector('.trial-dialog-close').addEventListener('click', function () { trialDialog.close(); });
+    trialDialog.addEventListener('click', function (event) {
+        if (event.target === trialDialog) trialDialog.close();
+    });
+    trialForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!trialForm.reportValidity()) return;
+        trialForm.hidden = true;
+        trialResult.textContent = 'Thanks. This local preview does not send the request; the live AMAkids site connects this action to its center booking form.';
+        trialResult.hidden = false;
+    });
 
     document.querySelectorAll('[data-open-lead]').forEach(function (trigger) {
         trigger.addEventListener('click', function () {
@@ -74,12 +114,13 @@
             'Request: ' + requestLabel,
             'Name: ' + data.get('name'),
             'Email: ' + data.get('email'),
+            'Phone or WhatsApp: ' + data.get('phone'),
             'Country: ' + data.get('country'),
             'Partnership model: ' + data.get('model'),
             'Existing education business: ' + (data.get('existing_business') || 'No')
         ].join('\n');
         var subject = 'AMAkids enquiry — ' + requestLabel;
-        var mailto = 'mailto:info@amakids.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        var mailto = 'mailto:international@amakids.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
         formView.hidden = true;
         successView.hidden = false;

@@ -1,9 +1,10 @@
 (function () {
     var routes = [
-        { id: 'partnership-models', label: 'Partnership models' },
-        { id: 'programs', label: 'Programs' },
-        { id: 'platform', label: 'Platform & CRM' },
-        { id: 'partnership-proposal', label: 'Partnership proposal' }
+        { id: 'formats', label: 'Formats', href: '/#models' },
+        { id: 'programs', label: 'Programs', href: '/#programs' },
+        { id: 'support', label: 'Support', href: '/#support' },
+        { id: 'investment', label: 'Investment', href: '/#investment' },
+        { id: 'resources', label: 'Franchise Guides & Resources', href: '/resources/' }
     ];
 
     document.querySelectorAll('[data-site-header]').forEach(function (header, index) {
@@ -14,25 +15,24 @@
             var current = route.id === activeRoute;
             if (route.id === 'programs') {
                 return '<div class="nav-dropdown' + (current ? ' is-active' : '') + '">' +
-                    '<a href="' + base + '/programs/"' + (current ? ' aria-current="page"' : '') + '>Programs</a>' +
+                    '<a href="' + base + route.href + '"' + (current ? ' aria-current="page"' : '') + '>Programs</a>' +
                     '<button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-label="Open program pages"><span></span></button>' +
                     '<div class="nav-dropdown-panel">' +
                         '<a href="' + base + '/programs/mental-arithmetic/">Abacus &amp; Mental Arithmetic</a>' +
-                        '<a href="' + base + '/programs/#english">English Classes</a>' +
-                        '<a href="' + base + '/programs/#memory-training">Memory Training</a>' +
                     '</div>' +
                 '</div>';
             }
-            return '<a href="' + base + '/' + route.id + '/" class="' + (current ? 'is-active' : '') + '"' + (current ? ' aria-current="page"' : '') + '>' + route.label + '</a>';
+            return '<a href="' + base + route.href + '" class="' + (current ? 'is-active' : '') + '"' + (current ? ' aria-current="page"' : '') + '>' + route.label + '</a>';
         }).join('');
         var cta = header.hasAttribute('data-dialog-cta')
-            ? '<button class="nav-cta" type="button" data-open-lead="presentation">Get the presentation</button>'
-            : '<a class="nav-cta" href="' + base + '/#presentation">Get the presentation</a>';
+            ? '<button class="nav-cta" type="button" data-open-lead="presentation" data-cta-location="header">Get the presentation</button>'
+            : '<a class="nav-cta" href="' + base + '/#presentation" data-cta-location="header">Get the presentation</a>';
 
         header.innerHTML = '<div class="shell header-inner">' +
             '<a class="brand" href="' + base + '/" aria-label="AMAkids home">' +
                 '<img src="' + base + '/shared/assets/brand/logo-header.webp" alt="AMAkids">' +
             '</a>' +
+            '<button class="nav-cta nav-cta-mobile" type="button" data-open-lead="presentation" data-cta-location="header">Get the presentation</button>' +
             '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="' + navId + '">' +
                 '<span></span><span></span><span></span><span class="visually-hidden">Open menu</span>' +
             '</button>' +

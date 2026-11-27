@@ -16,6 +16,7 @@ ready-for-develop/
 ├── partnership-models/index.html      # route placeholder
 ├── programs/index.html                # program catalogue
 ├── programs/mental-arithmetic/        # first complete program subroute
+├── resources/index.html               # franchise guide library
 ├── platform/index.html                # route placeholder
 ├── partnership-proposal/index.html    # route placeholder
 ├── shared/                            # site-wide shell and assets
@@ -43,6 +44,7 @@ The header is rendered from `shared/scripts/site-shell.js`. Its route list is th
 - `/partnership-models/` — future partnership-model detail page.
 - `/programs/` — program catalogue and parent route.
 - `/programs/mental-arithmetic/` — Mental Arithmetic program page for partners, teachers and families.
+- `/resources/` — dedicated Franchise Guides & Resources library, linked from the homepage and shared navigation.
 - `/platform/` — future platform and CRM page.
 - `/partnership-proposal/` — future commercial proposal page.
 
@@ -50,9 +52,15 @@ The partnership-model, platform and partnership-proposal routes remain deliberat
 
 ## Lead form
 
-The homepage form is a prototype flow: it prepares an email draft and downloads the presentation after submission. It does not save leads to a server or CRM. Connect an approved endpoint before production lead capture.
+The homepage franchise form is a prototype flow: it asks for name, email, phone/WhatsApp, country and partnership model, prepares an email draft and downloads the presentation after submission. It does not save leads to a server or CRM. The B2C trial-lesson CTA opens the original `data-open-form="offline"` handler when present; without the Yii form in this local preview, it opens a demo dialog that does not submit or store a request. Keep the existing Yii booking form connected on the live franchise branch.
+
+The franchise landing page mirrors the current visible structure of [amakids.com/franchise](https://amakids.com/franchise/), including its network figures and program age ranges. `Franchise Guides & Resources` is a separate route; article thumbnails are hosted locally and article links open the original AMAkids posts. Recheck live copy and figures before publishing, as the source page can change.
+
+The Programs dropdown currently lists only the ready Mental Arithmetic page. English and Memorika will be added after their partner-facing pages are prepared. The homepage hero and partnership-format cards use locally stored 1536×1024 WebP illustrative images in `modules/franchise-landing/images/partnership/`; they are generated representations, not documentary photos of actual AMAkids partners or students.
 
 The Mental Arithmetic page links to the AMAkids platform demo and the partnership models on the homepage.
+
+The homepage Mental Arithmetic card and the shared Programs dropdown both open `/programs/mental-arithmetic/`. The course page's Franchise navigation returns to the homepage, so visitors can move between the program details and the partner offer.
 
 ## Mental Arithmetic program page
 
