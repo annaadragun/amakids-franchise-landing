@@ -65,7 +65,8 @@ The course page uses its original program header, with dedicated assets and styl
 - GitHub automatically attaches ZIP and TAR source archives to every release.
 - Published tags are permanent snapshots. Make changes on `main`, then create a new semantic version tag such as `v0.2.0`.
 - Release automation records the tag in `.github/published-version-tags.txt` on `main` and explicitly starts the Pages deployment.
+- The Pages deployment adds `noindex, noimageindex` to the HTML it serves at the latest and versioned URLs. This keeps the pages accessible by direct link while opting out of search indexing.
 
 To publish a version, push the release commit to `main`, then create and push an annotated tag on that commit. Use the next semantic version and put the release summary in the body of the tag annotation. The release workflow includes it in the GitHub Release notes. After both workflows finish, check the latest site and the versioned link from the release.
 
-The workflows are `.github/workflows/deploy-pages.yml` and `.github/workflows/release.yml`. No Python, Node, package manager or generated build output is required.
+The workflows are `.github/workflows/deploy-pages.yml` and `.github/workflows/release.yml`. Local preview requires no Python, Node, package manager or generated build output.

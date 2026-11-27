@@ -40,6 +40,27 @@ jobs:
               | tar -x --strip-components=1 -C "public/versions/$tag"
           done < <(git tag --list 'v*' --sort=version:refname)
 
+      - name: Exclude published HTML from search indexing
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          robots_meta = b'<meta name="robots" content="noindex, noimageindex">'
+          for page in Path("public").rglob("*.html"):
+              html = page.read_bytes()
+              if robots_meta in html:
+                  continue
+              html, updated = re.subn(
+                  rb'(<head\b[^>]*>)', rb'\1\n    ' + robots_meta, html,
+                  count=1, flags=re.IGNORECASE,
+              )
+              if not updated:
+                  raise SystemExit(f"Cannot add robots metadata to {page}: missing <head>")
+              page.write_bytes(html)
+          PY
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
